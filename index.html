@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RootWork Lesson Plan Explainer</title>
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #7c3aed;
+            --highlight-color: #fbbf24;
+            --text-color: #1f2937;
+            --bg-color: #ffffff;
+            --panel-bg: #f9fafb;
+            --border-color: #e5e7eb;
+            --success-color: #10b981;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+        }
+
+        /* Layout */
+        .container {
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Content Panel */
+        .content-panel {
+            flex: 1;
+            overflow-y: auto;
+            padding: 2rem;
+            background-color: var(--bg-color);
+        }
+
+        /* Explainer Panel */
+        .explainer-panel {
+            width: 400px;
+            background-color: var(--panel-bg);
+            border-left: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .explainer-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+        }
+
+        .explainer-header h2 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .explainer-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1.5rem;
+        }
+
+        .narration-text {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: var(--text-color);
+            margin-bottom: 1rem;
+        }
+
+        /* Controls */
+        .controls {
+            padding: 1.5rem;
+            border-top: 1px solid var(--border-color);
+            background-color: white;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background-color: var(--border-color);
+            border-radius: 3px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            border-radius: 3px;
+            transition: width 0.3s ease;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        button {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: var(--shadow);
+        }
+
+        button:hover {
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+        }
+
+        .btn-secondary {
+            background-color: white;
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+        }
+
+        .step-info {
+            text-align: center;
+            font-size: 0.875rem;
+            color: #6b7280;
+            margin-top: 0.5rem;
+        }
+
+        /* TTS Controls */
+        .tts-controls {
+            padding: 1rem 1.5rem;
+            border-top: 1px solid var(--border-color);
+            background-color: #fef3c7;
+        }
+
+        .tts-toggle {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 44px;
+            height: 24px;
+            background-color: #d1d5db;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .toggle-switch.active {
+            background-color: var(--success-color);
+        }
+
+        .toggle-slider {
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border-radius: 50%;
+            transition: transform 0.3s;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .toggle-switch.active .toggle-slider {
+            transform: translateX(20px);
+        }
+
+        /* Content Styling */
+        .lesson-content {
+            max-width: 800px;
+        }
+
+        section {
+            margin-bottom: 3rem;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        section.highlighted {
+            background-color: #fef3c7;
+            border-left: 4px solid var(--highlight-color);
+            box-shadow: var(--shadow);
+            transform: scale(1.01);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+            line-height: 1.2;
+        }
+
+        h2 {
+            font-size: 1.875rem;
+            margin-bottom: 1rem;
+            color: var(--secondary-color);
+            line-height: 1.3;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.75rem;
+            color: var(--text-color);
+        }
+
+        h4 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        ul, ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        strong {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        em {
+            color: var(--secondary-color);
+        }
+
+        .subsection {
+            margin-left: 1.5rem;
+            padding-left: 1rem;
+            border-left: 3px solid var(--border-color);
+        }
+
+        /* Visual Indicators */
+        .highlight-marker {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background-color: var(--highlight-color);
+            border-radius: 50%;
+            margin-right: 0.5rem;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.5;
+                transform: scale(1.2);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .explainer-panel {
+                width: 100%;
+                height: 50vh;
+                border-left: none;
+                border-top: 1px solid var(--border-color);
+            }
+
+            .content-panel {
+                height: 50vh;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .content-panel {
+                padding: 1rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            .explainer-panel {
+                width: 100%;
+            }
+        }
+
+        /* Accessibility */
+        button:focus,
+        .toggle-switch:focus {
+            outline: 2px solid var(--primary-color);
+            outline-offset: 2px;
+        }
+
+        /* Smooth Scrolling */
+        .content-panel {
+            scroll-behavior: smooth;
+        }
+
+        /* Loading State */
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            color: #6b7280;
+        }
+
+        /* Status Indicator */
+        .status-indicator {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 0.5rem;
+        }
+
+        .status-indicator.playing {
+            background-color: var(--success-color);
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        .status-indicator.paused {
+            background-color: #f59e0b;
+        }
+
+        /* Additional Utility Classes */
+        .text-muted {
+            color: #6b7280;
+        }
+
+        .mb-2 {
+            margin-bottom: 0.5rem;
+        }
+
+        .mb-4 {
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Main Content Panel -->
+        <div class="content-panel" id="contentPanel">
+            <div class="lesson-content" id="lessonContent">
+                <h1>RootWork Lesson Plan</h1>
+                
+                <section id="section-0" data-section="0">
+                    <h2>Introduction: Understanding RootWork</h2>
+                    <p>RootWork is a comprehensive educational framework designed to build foundational skills through interconnected learning experiences. This lesson plan demonstrates exceptional pedagogical design through its systematic approach to skill development, relationship building, and knowledge integration.</p>
+                    <p>The structure follows best practices in education by starting with relationship-building and progressively layering complex concepts while maintaining clear connections between all elements.</p>
+                </section>
+
+                <section id="section-1" data-section="1">
+                    <h2>1. Relationships & Community Building</h2>
+                    <p><strong>Why this is exceptional:</strong> The lesson begins with relationship-building rather than jumping directly into content. This follows research-backed practices that show students learn best when they feel safe and connected to their learning community.</p>
+                    
+                    <div class="subsection">
+                        <h3>Opening Circle (10 minutes)</h3>
+                        <ul>
+                            <li><strong>Structured sharing:</strong> Each student shares one thing they're grateful for today</li>
+                            <li><strong>Active listening practice:</strong> Students practice reflective listening techniques</li>
+                            <li><strong>Community norms review:</strong> Revisit and reinforce classroom agreements</li>
+                        </ul>
+                        <p>This creates psychological safety and activates prior knowledge about group dynamics.</p>
+                    </div>
+
+                    <div class="subsection">
+                        <h3>Partner Connection Activity (5 minutes)</h3>
+                        <p>Students pair up for a quick "think-pair-share" on what they hope to learn today. This:</p>
+                        <ul>
+                            <li>Activates curiosity and purpose</li>
+                            <li>Builds peer relationships</li>
+                            <li>Provides formative assessment data for the teacher</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section id="section-2" data-section="2">
+                    <h2>2. Learning Objectives & Success Criteria</h2>
+                    <p><strong>Why this is exceptional:</strong> Objectives are clearly stated in student-friendly language, and success criteria are co-created with students, increasing ownership and understanding.</p>
+                    
+                    <div class="subsection">
+                        <h3>Today's Learning Goals:</h3>
+                        <ol>
+                            <li><strong>Core Skill:</strong> Students will analyze complex systems by identifying root causes and interconnections</li>
+                            <li><strong>Application:</strong> Students will apply root cause analysis to a real-world scenario</li>
+                            <li><strong>Collaboration:</strong> Students will work effectively in teams to solve problems</li>
+                        </ol>
+                    </div>
+
+                    <div class="subsection">
+                        <h3>Success Criteria (Co-created):</h3>
+                        <p>Students help define what success looks like:</p>
+                        <ul>
+                            <li>I can identify at least three interconnected factors in a system</li>
+                            <li>I can distinguish between symptoms and root causes</li>
+                            <li>I can explain my thinking using evidence</li>
+                            <li>I can listen to and build upon my teammates' ideas</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section id="section-3" data-section="3">
+                    <h2>3. Direct Instruction & Modeling</h2>
+                    <p><strong>Why this is exceptional:</strong> The teacher uses multiple modalities (visual, auditory, kinesthetic) and the "I do, We do, You do" gradual release model.</p>
+                    
+                    <div class="subsection">
+                        <h3>Introduction to Root Cause Analysis (15 minutes)</h3>
+                        <ul>
+                            <li><strong>Visual:</strong> Teacher displays a "root system" diagram showing how problems branch from core issues</li>
+                            <li><strong>Real-world example:</strong> Analyzes why a plant might be wilting (surface symptoms vs. root problems)</li>
+                            <li><strong>Think-aloud:</strong> Teacher models their thinking process explicitly</li>
+                            <li><strong>Multiple representations:</strong> Uses metaphor, diagram, and concrete example</li>
+                        </ul>
+                    </div>
+
+                    <div class="subsection">
+                        <h3>Guided Practice (10 minutes)</h3>
+                        <p>Teacher and students work through a scenario together:</p>
+                        <ul>
+                            <li>Scenario: Traffic congestion in their city</li>
+                            <li>Students suggest surface-level observations</li>
+                            <li>Teacher guides them to dig deeper with strategic questions</li>
+                            <li>Class co-constructs a root cause analysis diagram</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section id="section-4" data-section="4">
+                    <h2>4. Active Learning & Application</h2>
+                    <p><strong>Why this is exceptional:</strong> Students immediately apply new learning in a structured but open-ended way, with clear scaffolds and differentiation options.</p>
+                    
+                    <div class="subsection">
+                        <h3>Small Group Investigation (25 minutes)</h3>
+                        <p>Teams of 3-4 students choose from:</p>
+                        <ul>
+                            <li><strong>Option A (Approaching):</strong> Analyze a provided scenario with guided questions</li>
+                            <li><strong>Option B (On-level):</strong> Choose from 3 real-world scenarios to analyze</li>
+                            <li><strong>Option C (Advanced):</strong> Identify and analyze a problem from their own community</li>
+                        </ul>
+                        
+                        <h4>Structured Process:</h4>
+                        <ol>
+                            <li>Identify the problem (2 minutes)</li>
+                            <li>List observable symptoms (5 minutes)</li>
+                            <li>Ask "why" five times to dig deeper (8 minutes)</li>
+                            <li>Create visual representation (10 minutes)</li>
+                        </ol>
+                    </div>
+
+                    <div class="subsection">
+                        <h3>Gallery Walk (10 minutes)</h3>
+                        <p>Groups display their work and engage in structured peer feedback:</p>
+                        <ul>
+                            <li>Students rotate through other groups' work</li>
+                            <li>Leave written feedback on sticky notes using "I notice..." and "I wonder..." stems</li>
+                            <li>Builds communication skills and exposes students to multiple perspectives</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section id="section-5" data-section="5">
+                    <h2>5. Reflection & Metacognition</h2>
+                    <p><strong>Why this is exceptional:</strong> The lesson explicitly builds metacognitive skills by having students reflect on their learning process, not just the content.</p>
+                    
+                    <div class="subsection">
+                        <h3>Individual Reflection (5 minutes)</h3>
+                        <p>Students write in learning journals responding to prompts:</p>
+                        <ul>
+                            <li>What strategy did you use to dig beneath surface symptoms?</li>
+                            <li>When did you feel challenged today? How did you respond?</li>
+                            <li>How might you use root cause thinking outside of class?</li>
+                        </ul>
+                    </div>
+
+                    <div class="subsection">
+                        <h3>Sharing Circle (5 minutes)</h3>
+                        <p>Volunteers share one insight about their learning process. This:</p>
+                        <ul>
+                            <li>Validates different approaches to learning</li>
+                            <li>Builds a "learning community" culture</li>
+                            <li>Provides closure and celebration</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section id="section-6" data-section="6">
+                    <h2>6. Assessment Strategy</h2>
+                    <p><strong>Why this is exceptional:</strong> Uses multiple forms of assessment aligned to objectives, providing comprehensive feedback without overwhelming students with tests.</p>
+                    
+                    <div class="subsection">
+                        <h3>Formative Assessment:</h3>
+                        <ul>
+                            <li><strong>Observation notes:</strong> Teacher circulates during group work with a checklist</li>
+                            <li><strong>Exit ticket:</strong> Quick written response to check understanding</li>
+                            <li><strong>Peer feedback:</strong> From gallery walk provides insight into student thinking</li>
+                        </ul>
+                    </div>
+
+                    <div class="subsection">
+                        <h3>Summative Assessment:</h3>
+                        <ul>
+                            <li><strong>Group product:</strong> Root cause analysis diagram evaluated with rubric</li>
+                            <li><strong>Self-assessment:</strong> Students rate themselves against success criteria</li>
+                            <li><strong>Reflection journal:</strong> Demonstrates metacognitive development</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section id="section-7" data-section="7">
+                    <h2>7. Differentiation & Universal Design</h2>
+                    <p><strong>Why this is exceptional:</strong> Multiple entry points and pathways ensure all students can access and excel with the content.</p>
+                    
+                    <div class="subsection">
+                        <h3>Built-in Supports:</h3>
+                        <ul>
+                            <li><strong>Choice in scenarios:</strong> Students select complexity level</li>
+                            <li><strong>Multiple modalities:</strong> Visual, auditory, kinesthetic activities</li>
+                            <li><strong>Flexible grouping:</strong> Teacher strategically groups students or allows choice</li>
+                            <li><strong>Sentence stems:</strong> Provided for students who need language support</li>
+                            <li><strong>Extended time option:</strong> For students who need it</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section id="section-8" data-section="8">
+                    <h2>8. Extension & Enrichment</h2>
+                    <p><strong>Why this is exceptional:</strong> Provides meaningful challenge for students who master concepts quickly, preventing boredom and promoting growth.</p>
+                    
+                    <div class="subsection">
+                        <h3>For Advanced Learners:</h3>
+                        <ul>
+                            <li>Research additional root cause analysis frameworks (5 Whys, Fishbone Diagram, Fault Tree Analysis)</li>
+                            <li>Apply multiple frameworks to the same problem and compare insights</li>
+                            <li>Create a presentation teaching one framework to peers</li>
+                            <li>Identify a school-wide problem and present analysis to administration</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section id="section-9" data-section="9">
+                    <h2>9. Home Connection & Transfer</h2>
+                    <p><strong>Why this is exceptional:</strong> Explicitly connects classroom learning to students' lives beyond school, promoting transfer and relevance.</p>
+                    
+                    <div class="subsection">
+                        <h3>Take-Home Challenge:</h3>
+                        <p>Students select one of:</p>
+                        <ul>
+                            <li>Interview a family member about a problem they've solved at work, analyzing their approach</li>
+                            <li>Identify a household challenge and use root cause analysis to propose a solution</li>
+                            <li>Watch a news story and analyze the root causes of the issue presented</li>
+                        </ul>
+                        <p>Students share findings in next class, creating continuity and demonstrating real-world application.</p>
+                    </div>
+                </section>
+
+                <section id="section-10" data-section="10">
+                    <h2>Appendix: Why This Lesson Plan Works</h2>
+                    <p><strong>Summary of Exceptional Elements:</strong></p>
+                    
+                    <div class="subsection">
+                        <h3>Research-Based Practices:</h3>
+                        <ol>
+                            <li><strong>Gradual Release Model:</strong> I do, We do, You do structure scaffolds learning</li>
+                            <li><strong>Multiple Modalities:</strong> Addresses diverse learning preferences</li>
+                            <li><strong>Metacognition:</strong> Students reflect on their learning process</li>
+                            <li><strong>Authentic Application:</strong> Real-world connections make learning meaningful</li>
+                            <li><strong>Formative Assessment:</strong> Continuous feedback loop informs instruction</li>
+                        </ol>
+                    </div>
+
+                    <div class="subsection">
+                        <h3>Social-Emotional Learning Integration:</h3>
+                        <ul>
+                            <li>Relationship building creates psychological safety</li>
+                            <li>Collaboration skills explicitly taught and practiced</li>
+                            <li>Student choice increases autonomy and engagement</li>
+                            <li>Reflection builds self-awareness</li>
+                        </ul>
+                    </div>
+
+                    <div class="subsection">
+                        <h3>Equity & Access:</h3>
+                        <ul>
+                            <li>Multiple entry points allow all students to participate meaningfully</li>
+                            <li>Varied assessment methods capture diverse strengths</li>
+                            <li>Flexible pacing accommodates different learning speeds</li>
+                            <li>Universal Design for Learning principles embedded throughout</li>
+                        </ul>
+                    </div>
+
+                    <div class="subsection">
+                        <h3>Sustainability:</h3>
+                        <ul>
+                            <li>Skills taught (root cause analysis, collaboration) transfer to countless contexts</li>
+                            <li>Metacognitive practices help students become independent learners</li>
+                            <li>Community-building creates lasting positive classroom culture</li>
+                        </ul>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <!-- Explainer Panel -->
+        <div class="explainer-panel">
+            <div class="explainer-header">
+                <h2><span class="status-indicator" id="statusIndicator"></span>Explainer Track</h2>
+                <p class="text-muted" style="font-size: 0.875rem; margin: 0;">Interactive guided walkthrough</p>
+            </div>
+
+            <div class="explainer-content" id="explainerContent">
+                <p class="narration-text" id="narrationText">
+                    Welcome to the RootWork Lesson Plan Explainer. This interactive tool will guide you through an exceptional lesson plan, highlighting key elements and explaining why each component is pedagogically sound. Click "Start" to begin the guided tour.
+                </p>
+            </div>
+
+            <div class="tts-controls">
+                <div class="tts-toggle">
+                    <div class="toggle-switch" id="ttsToggle" role="switch" aria-checked="false" tabindex="0">
+                        <div class="toggle-slider"></div>
+                    </div>
+                    <label for="ttsToggle">Enable Text-to-Speech</label>
+                </div>
+            </div>
+
+            <div class="controls">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+                </div>
+
+                <div class="button-group">
+                    <button class="btn-secondary" id="prevBtn" disabled>
+                        ← Previous
+                    </button>
+                    <button class="btn-primary" id="playBtn">
+                        Start Tour
+                    </button>
+                    <button class="btn-secondary" id="nextBtn">
+                        Next →
+                    </button>
+                </div>
+
+                <div class="step-info">
+                    <span id="stepInfo">Step 0 of 11</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Explainer Track Data
+        const explainerSteps = [
+            {
+                title: "Welcome to RootWork",
+                narration: "Welcome to the RootWork Lesson Plan Explainer. This interactive tool guides you through an exceptional lesson plan that demonstrates best practices in education. We'll explore each component and explain why it works. The lesson plan covers everything from relationship-building to assessment, showing how all elements work together to create an effective learning experience.",
+                sectionId: "section-0"
+            },
+            {
+                title: "Relationships & Community",
+                narration: "The lesson begins with relationship-building, which is exceptional because research shows students learn best when they feel safe and connected. Notice how the opening circle and partner activities create psychological safety before introducing challenging content. This isn't just a 'warm-up' – it's a critical foundation that enables deeper learning throughout the lesson.",
+                sectionId: "section-1"
+            },
+            {
+                title: "Clear Learning Objectives",
+                narration: "What makes this section exceptional is that objectives are written in student-friendly language, and success criteria are co-created with students. This increases ownership and understanding. Students don't just know what they're learning – they help define what success looks like. This metacognitive practice is proven to improve learning outcomes.",
+                sectionId: "section-2"
+            },
+            {
+                title: "Effective Direct Instruction",
+                narration: "This section exemplifies the gradual release model: 'I do, We do, You do.' The teacher uses multiple modalities – visual diagrams, real-world examples, and think-alouds. Notice how the teacher doesn't just present information but models their thinking process. The guided practice with traffic congestion connects to students' lived experience, making abstract concepts concrete.",
+                sectionId: "section-3"
+            },
+            {
+                title: "Active Learning Application",
+                narration: "Here's where students take ownership of their learning. The differentiated options – approaching, on-level, and advanced – ensure every student can access the content at an appropriate challenge level. The gallery walk builds communication skills and exposes students to multiple perspectives. This isn't busy work – it's structured application that deepens understanding.",
+                sectionId: "section-4"
+            },
+            {
+                title: "Reflection & Metacognition",
+                narration: "This component is exceptional because it explicitly builds metacognitive skills. Students reflect not just on what they learned, but how they learned it. The journal prompts ask students to identify their strategies and responses to challenges. This self-awareness is crucial for developing independent learners who can transfer skills to new contexts.",
+                sectionId: "section-5"
+            },
+            {
+                title: "Comprehensive Assessment",
+                narration: "The assessment strategy is exceptional because it uses multiple forms aligned to objectives, providing comprehensive feedback without overwhelming students. Formative assessments during the lesson inform real-time adjustments. Summative assessments capture both product and process. The self-assessment component builds student agency and metacognition.",
+                sectionId: "section-6"
+            },
+            {
+                title: "Differentiation & Universal Design",
+                narration: "This section shows how Universal Design for Learning is embedded throughout. Multiple entry points ensure all students can access the content. Choice in scenarios, flexible grouping, and varied supports aren't add-ons – they're core design features. This approach doesn't lower expectations; it provides multiple pathways to high achievement.",
+                sectionId: "section-7"
+            },
+            {
+                title: "Extension & Enrichment",
+                narration: "Extension activities provide meaningful challenge for students who master concepts quickly. These aren't just 'more of the same' – they deepen understanding through additional frameworks and real-world application. The option to present to administration gives students authentic purpose and audience, increasing engagement and relevance.",
+                sectionId: "section-8"
+            },
+            {
+                title: "Home Connection & Transfer",
+                narration: "The take-home challenge is exceptional because it explicitly promotes transfer to students' lives beyond school. By offering choice – interview, household challenge, or news analysis – students can connect learning to their interests and contexts. This isn't traditional homework; it's authentic application that continues the learning conversation.",
+                sectionId: "section-9"
+            },
+            {
+                title: "Synthesis: Why It Works",
+                narration: "The appendix synthesizes all the exceptional elements. This lesson works because it integrates research-based practices, social-emotional learning, equity principles, and sustainability. Notice how each component connects to others – relationships enable risk-taking, clear objectives guide assessment, differentiation ensures access. This isn't a collection of strategies; it's a coherent system designed for deep, lasting learning.",
+                sectionId: "section-10"
+            }
+        ];
+
+        // Application State
+        class ExplainerApp {
+            constructor() {
+                this.currentStep = 0;
+                this.isPlaying = false;
+                this.ttsEnabled = false;
+                this.utterance = null;
+                
+                // DOM Elements
+                this.playBtn = document.getElementById('playBtn');
+                this.nextBtn = document.getElementById('nextBtn');
+                this.prevBtn = document.getElementById('prevBtn');
+                this.ttsToggle = document.getElementById('ttsToggle');
+                this.narrationText = document.getElementById('narrationText');
+                this.stepInfo = document.getElementById('stepInfo');
+                this.progressFill = document.getElementById('progressFill');
+                this.contentPanel = document.getElementById('contentPanel');
+                this.statusIndicator = document.getElementById('statusIndicator');
+                
+                this.initializeEventListeners();
+                this.updateUI();
+            }
+
+            initializeEventListeners() {
+                this.playBtn.addEventListener('click', () => this.togglePlay());
+                this.nextBtn.addEventListener('click', () => this.nextStep());
+                this.prevBtn.addEventListener('click', () => this.prevStep());
+                this.ttsToggle.addEventListener('click', () => this.toggleTTS());
+                
+                // Keyboard navigation
+                this.ttsToggle.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        this.toggleTTS();
+                    }
+                });
+
+                // Keyboard shortcuts
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'ArrowRight' && !e.ctrlKey && !e.metaKey) {
+                        this.nextStep();
+                    } else if (e.key === 'ArrowLeft' && !e.ctrlKey && !e.metaKey) {
+                        this.prevStep();
+                    } else if (e.key === ' ' && e.target.tagName !== 'BUTTON') {
+                        e.preventDefault();
+                        this.togglePlay();
+                    }
+                });
+
+                // TTS ended event
+                if ('speechSynthesis' in window) {
+                    // No direct event listener, we'll check status in methods
+                }
+            }
+
+            togglePlay() {
+                if (this.currentStep === 0 && !this.isPlaying) {
+                    // Start the tour
+                    this.isPlaying = true;
+                    this.goToStep(1);
+                } else {
+                    this.isPlaying = !this.isPlaying;
+                    if (this.isPlaying) {
+                        this.speak();
+                    } else {
+                        this.stopSpeaking();
+                    }
+                }
+                this.updateUI();
+            }
+
+            nextStep() {
+                if (this.currentStep < explainerSteps.length - 1) {
+                    this.goToStep(this.currentStep + 1);
+                }
+            }
+
+            prevStep() {
+                if (this.currentStep > 0) {
+                    this.goToStep(this.currentStep - 1);
+                }
+            }
+
+            goToStep(stepIndex) {
+                this.stopSpeaking();
+                this.currentStep = stepIndex;
+                this.isPlaying = true;
+                
+                const step = explainerSteps[this.currentStep];
+                
+                // Update narration text
+                this.narrationText.textContent = step.narration;
+                
+                // Remove previous highlights
+                document.querySelectorAll('section.highlighted').forEach(section => {
+                    section.classList.remove('highlighted');
+                });
+                
+                // Add highlight to current section
+                const targetSection = document.getElementById(step.sectionId);
+                if (targetSection) {
+                    targetSection.classList.add('highlighted');
+                    
+                    // Scroll to section smoothly
+                    targetSection.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+                
+                // Speak if TTS is enabled
+                if (this.ttsEnabled) {
+                    setTimeout(() => this.speak(), 500);
+                }
+                
+                this.updateUI();
+            }
+
+            toggleTTS() {
+                this.ttsEnabled = !this.ttsEnabled;
+                this.ttsToggle.classList.toggle('active', this.ttsEnabled);
+                this.ttsToggle.setAttribute('aria-checked', this.ttsEnabled);
+                
+                if (this.ttsEnabled && this.isPlaying) {
+                    this.speak();
+                } else {
+                    this.stopSpeaking();
+                }
+            }
+
+            speak() {
+                if (!this.ttsEnabled || !('speechSynthesis' in window)) {
+                    return;
+                }
+                
+                this.stopSpeaking();
+                
+                const step = explainerSteps[this.currentStep];
+                this.utterance = new SpeechSynthesisUtterance(step.narration);
+                this.utterance.rate = 0.9;
+                this.utterance.pitch = 1;
+                this.utterance.volume = 1;
+                
+                this.utterance.onend = () => {
+                    this.utterance = null;
+                };
+                
+                window.speechSynthesis.speak(this.utterance);
+            }
+
+            stopSpeaking() {
+                if ('speechSynthesis' in window) {
+                    window.speechSynthesis.cancel();
+                }
+                this.utterance = null;
+            }
+
+            updateUI() {
+                // Update play button
+                if (this.currentStep === 0) {
+                    this.playBtn.textContent = 'Start Tour';
+                } else if (this.isPlaying) {
+                    this.playBtn.textContent = '⏸ Pause';
+                } else {
+                    this.playBtn.textContent = '▶ Resume';
+                }
+                
+                // Update navigation buttons
+                this.prevBtn.disabled = this.currentStep === 0;
+                this.nextBtn.disabled = this.currentStep === explainerSteps.length - 1;
+                
+                // Update step info
+                this.stepInfo.textContent = `Step ${this.currentStep} of ${explainerSteps.length - 1}`;
+                
+                // Update progress bar
+                const progress = (this.currentStep / (explainerSteps.length - 1)) * 100;
+                this.progressFill.style.width = `${progress}%`;
+                
+                // Update status indicator
+                this.statusIndicator.className = 'status-indicator';
+                if (this.isPlaying && this.currentStep > 0) {
+                    this.statusIndicator.classList.add('playing');
+                } else if (this.currentStep > 0) {
+                    this.statusIndicator.classList.add('paused');
+                }
+            }
+        }
+
+        // Initialize the application when DOM is ready
+        document.addEventListener('DOMContentLoaded', () => {
+            new ExplainerApp();
+        });
+    </script>
+</body>
+</html>
