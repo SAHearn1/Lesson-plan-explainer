@@ -1281,13 +1281,15 @@
             43: 'segment-43.mp3',
             44: 'segment-44.mp3'
         };
-        // Audio element will be initialized after DOM loads
+        // Audio element and UI elements will be initialized after DOM loads
         let audioEl = null;
+        let ttsIndicator = null;
 
         // Initialize after DOM is ready
         document.addEventListener('DOMContentLoaded', function() {
-            // Grab the audio element used for playback
+            // Grab the audio element and UI elements used for playback
             audioEl = document.getElementById('segmentAudio');
+            ttsIndicator = document.getElementById('ttsIndicator');
             
             // Initialize display
             updateDisplay();
@@ -1456,15 +1458,12 @@
         function playPreRecordedAudio(segment) {
             const fileName = audioMap[segment.id];
             if (!fileName || !audioEl) {
-                console.warn('Audio not available: fileName=' + fileName + ', audioEl=' + audioEl);
+                console.warn(`Audio not available: fileName=${fileName}, audioEl=${audioEl}`);
                 return;
             }
             // Construct full path and set source
             audioEl.src = audioBasePath + fileName;
             audioEl.currentTime = 0;
-            
-            // Get speaking indicator element
-            const ttsIndicator = document.getElementById('ttsIndicator');
             
             // Update the progress bar during playback
             audioEl.ontimeupdate = function() {
