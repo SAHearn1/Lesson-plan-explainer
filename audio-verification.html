@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio Verification Tool</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            padding: 2rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 2rem;
+        }
+
+        h1 {
+            color: #2d3748;
+            margin-bottom: 0.5rem;
+            font-size: 2rem;
+        }
+
+        .subtitle {
+            color: #718096;
+            margin-bottom: 2rem;
+            font-size: 1rem;
+        }
+
+        .controls {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: #e2e8f0;
+            color: #2d3748;
+        }
+
+        .btn-secondary:hover {
+            background: #cbd5e0;
+        }
+
+        .status {
+            padding: 1rem;
+            border-radius: 6px;
+            margin-bottom: 2rem;
+            font-weight: 600;
+        }
+
+        .status.testing {
+            background: #fef3c7;
+            color: #92400e;
+            border: 2px solid #fbbf24;
+        }
+
+        .status.success {
+            background: #d1fae5;
+            color: #065f46;
+            border: 2px solid #10b981;
+        }
+
+        .status.error {
+            background: #fee2e2;
+            color: #991b1b;
+            border: 2px solid #ef4444;
+        }
+
+        .status.idle {
+            background: #e0e7ff;
+            color: #3730a3;
+            border: 2px solid #6366f1;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 30px;
+            background: #e2e8f0;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 2rem;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #10b981, #059669);
+            transition: width 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+
+        .results {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+        }
+
+        .file-status {
+            padding: 0.75rem;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.875rem;
+            transition: all 0.3s ease;
+        }
+
+        .file-status.pending {
+            background: #f3f4f6;
+            color: #6b7280;
+        }
+
+        .file-status.testing {
+            background: #fef3c7;
+            color: #92400e;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        .file-status.success {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .file-status.error {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .file-status:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .icon {
+            font-size: 1.2rem;
+        }
+
+        .summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .summary-card {
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .summary-card.total {
+            background: #e0e7ff;
+            color: #3730a3;
+        }
+
+        .summary-card.success {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .summary-card.error {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .summary-card.pending {
+            background: #f3f4f6;
+            color: #6b7280;
+        }
+
+        .summary-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .summary-label {
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .details {
+            margin-top: 2rem;
+            padding: 1rem;
+            background: #f9fafb;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            color: #4b5563;
+        }
+
+        .details h3 {
+            margin-bottom: 0.5rem;
+            color: #1f2937;
+        }
+
+        .error-list {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        .error-list li {
+            padding: 0.5rem;
+            margin-bottom: 0.5rem;
+            background: white;
+            border-left: 4px solid #ef4444;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎵 Audio Verification Tool</h1>
+        <p class="subtitle">Test all 45 audio segments for the RootWork Lesson Plan Explainer</p>
+
+        <div class="controls">
+            <button class="btn-primary" id="testBtn">Test All Audio Files</button>
+            <button class="btn-secondary" id="resetBtn">Reset</button>
+            <button class="btn-secondary" id="testSampleBtn">Test Sample (First 5)</button>
+        </div>
+
+        <div class="status idle" id="status">
+            Ready to test audio files. Click "Test All Audio Files" to begin.
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-fill" id="progress" style="width: 0%;">0%</div>
+        </div>
+
+        <div class="results" id="results"></div>
+
+        <div class="summary">
+            <div class="summary-card total">
+                <div class="summary-value" id="totalCount">45</div>
+                <div class="summary-label">Total Files</div>
+            </div>
+            <div class="summary-card success">
+                <div class="summary-value" id="successCount">0</div>
+                <div class="summary-label">Loaded ✓</div>
+            </div>
+            <div class="summary-card error">
+                <div class="summary-value" id="errorCount">0</div>
+                <div class="summary-label">Failed ✗</div>
+            </div>
+            <div class="summary-card pending">
+                <div class="summary-value" id="pendingCount">45</div>
+                <div class="summary-label">Pending</div>
+            </div>
+        </div>
+
+        <div class="details" id="details" style="display: none;">
+            <h3>Test Details</h3>
+            <p id="detailsText"></p>
+            <ul class="error-list" id="errorList"></ul>
+        </div>
+    </div>
+
+    <script>
+        const TOTAL_SEGMENTS = 45;
+        const BASE_PATH = 'audio/';
+        const LOAD_TIMEOUT_MS = 10000; // 10 seconds timeout for loading
+        
+        let results = [];
+        let testingInProgress = false;
+
+        // UI Elements
+        const testBtn = document.getElementById('testBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const testSampleBtn = document.getElementById('testSampleBtn');
+        const statusEl = document.getElementById('status');
+        const progressEl = document.getElementById('progress');
+        const resultsEl = document.getElementById('results');
+        const detailsEl = document.getElementById('details');
+        const detailsText = document.getElementById('detailsText');
+        const errorList = document.getElementById('errorList');
+
+        // Event Listeners
+        testBtn.addEventListener('click', () => testAudioFiles(TOTAL_SEGMENTS));
+        testSampleBtn.addEventListener('click', () => testAudioFiles(5));
+        resetBtn.addEventListener('click', reset);
+
+        // Initialize
+        init();
+
+        function init() {
+            renderFileStatuses();
+        }
+
+        function renderFileStatuses() {
+            resultsEl.innerHTML = '';
+            for (let i = 0; i < TOTAL_SEGMENTS; i++) {
+                const div = document.createElement('div');
+                div.className = 'file-status pending';
+                div.id = `file-${i}`;
+                div.innerHTML = `
+                    <span>segment-${String(i).padStart(2, '0')}.mp3</span>
+                    <span class="icon">⏳</span>
+                `;
+                resultsEl.appendChild(div);
+            }
+        }
+
+        async function testAudioFiles(count) {
+            if (testingInProgress) return;
+            
+            testingInProgress = true;
+            reset(false);
+            
+            statusEl.className = 'status testing';
+            statusEl.textContent = `Testing ${count} audio file(s)...`;
+            
+            results = [];
+            
+            for (let i = 0; i < count; i++) {
+                await testSingleFile(i);
+                updateUI();
+            }
+            
+            testingInProgress = false;
+            showResults();
+        }
+
+        function testSingleFile(index) {
+            return new Promise((resolve) => {
+                const fileName = `segment-${String(index).padStart(2, '0')}.mp3`;
+                const filePath = BASE_PATH + fileName;
+                const fileEl = document.getElementById(`file-${index}`);
+                
+                fileEl.className = 'file-status testing';
+                fileEl.querySelector('.icon').textContent = '🔄';
+                
+                const audio = new Audio(filePath);
+                
+                const timeout = setTimeout(() => {
+                    results[index] = { success: false, error: 'Timeout (10s)' };
+                    fileEl.className = 'file-status error';
+                    fileEl.querySelector('.icon').textContent = '✗';
+                    resolve();
+                }, LOAD_TIMEOUT_MS);
+                
+                audio.addEventListener('canplaythrough', () => {
+                    clearTimeout(timeout);
+                    results[index] = { success: true };
+                    fileEl.className = 'file-status success';
+                    fileEl.querySelector('.icon').textContent = '✓';
+                    resolve();
+                });
+                
+                audio.addEventListener('error', (e) => {
+                    clearTimeout(timeout);
+                    results[index] = { success: false, error: 'Failed to load' };
+                    fileEl.className = 'file-status error';
+                    fileEl.querySelector('.icon').textContent = '✗';
+                    resolve();
+                });
+                
+                audio.load();
+            });
+        }
+
+        function updateUI() {
+            const tested = results.length;
+            const success = results.filter(r => r && r.success).length;
+            const failed = results.filter(r => r && !r.success).length;
+            const pending = TOTAL_SEGMENTS - tested;
+            
+            const percentage = Math.round((tested / TOTAL_SEGMENTS) * 100);
+            progressEl.style.width = percentage + '%';
+            progressEl.textContent = percentage + '%';
+            
+            document.getElementById('successCount').textContent = success;
+            document.getElementById('errorCount').textContent = failed;
+            document.getElementById('pendingCount').textContent = pending;
+        }
+
+        function showResults() {
+            const tested = results.length;
+            const success = results.filter(r => r && r.success).length;
+            const failed = results.filter(r => r && !r.success).length;
+            
+            if (failed === 0) {
+                statusEl.className = 'status success';
+                statusEl.textContent = `✓ Success! All ${tested} audio file(s) loaded successfully.`;
+            } else {
+                statusEl.className = 'status error';
+                statusEl.textContent = `✗ ${failed} file(s) failed to load. See details below.`;
+                
+                detailsEl.style.display = 'block';
+                detailsText.textContent = `${success} file(s) loaded successfully, ${failed} file(s) failed.`;
+                
+                errorList.innerHTML = '';
+                results.forEach((result, index) => {
+                    if (result && !result.success) {
+                        const li = document.createElement('li');
+                        li.textContent = `segment-${String(index).padStart(2, '0')}.mp3 - ${result.error}`;
+                        errorList.appendChild(li);
+                    }
+                });
+            }
+        }
+
+        function reset(fullReset = true) {
+            if (fullReset) {
+                results = [];
+                progressEl.style.width = '0%';
+                progressEl.textContent = '0%';
+                document.getElementById('successCount').textContent = '0';
+                document.getElementById('errorCount').textContent = '0';
+                document.getElementById('pendingCount').textContent = TOTAL_SEGMENTS;
+                statusEl.className = 'status idle';
+                statusEl.textContent = 'Ready to test audio files. Click "Test All Audio Files" to begin.';
+                detailsEl.style.display = 'none';
+                renderFileStatuses();
+            }
+        }
+    </script>
+</body>
+</html>

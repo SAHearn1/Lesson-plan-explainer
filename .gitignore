@@ -1,0 +1,33 @@
+# OS Files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor Files
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+*.sublime-*
+
+# Temporary Files
+*.tmp
+*.temp
+*.log
+
+# Node modules (if anyone adds npm later)
+node_modules/
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Backup files
+*.bak
+*.backup
+*-old.*
+
+# Test files (user-created during development)
+/tmp/
