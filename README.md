@@ -4,6 +4,8 @@ An interactive educational content player that guides you through an exceptional
 
 > **✨ Now featuring professional ElevenLabs AI narration!** Experience natural, engaging voice-over instead of robotic browser TTS.
 
+> **🚀 New to this project?** Start with [GETTING-STARTED.md](GETTING-STARTED.md) for a quick introduction!
+
 ## 🚀 Features
 
 - **Professional Audio Narration**: 45 high-quality MP3 segments with natural-sounding AI voice (ElevenLabs)
