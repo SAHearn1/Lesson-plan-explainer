@@ -1456,18 +1456,19 @@
         function playPreRecordedAudio(segment) {
             const fileName = audioMap[segment.id];
             if (!fileName || !audioEl) {
+                console.warn('Audio not available: fileName=' + fileName + ', audioEl=' + audioEl);
                 return;
             }
             // Construct full path and set source
             audioEl.src = audioBasePath + fileName;
             audioEl.currentTime = 0;
             
-            // Show speaking indicator when audio starts playing
+            // Get speaking indicator element
             const ttsIndicator = document.getElementById('ttsIndicator');
             
             // Update the progress bar during playback
             audioEl.ontimeupdate = function() {
-                if (!audioEl.duration || isNaN(audioEl.duration)) return;
+                if (!audioEl || !audioEl.duration || isNaN(audioEl.duration)) return;
                 progress = (audioEl.currentTime / audioEl.duration) * 100;
                 if (progress > 100) progress = 100;
                 document.getElementById('progressBar').style.width = progress + '%';
@@ -1477,7 +1478,9 @@
             audioEl.onended = function() {
                 progress = 100;
                 document.getElementById('progressBar').style.width = '100%';
-                ttsIndicator.classList.remove('speaking');
+                if (ttsIndicator) {
+                    ttsIndicator.classList.remove('speaking');
+                }
                 if (currentSegment < segments.length - 1) {
                     currentSegment++;
                     updateDisplay();
@@ -1495,16 +1498,22 @@
             // Add error handler
             audioEl.onerror = function() {
                 console.error('Audio playback error for:', audioEl.src);
-                ttsIndicator.classList.remove('speaking');
+                if (ttsIndicator) {
+                    ttsIndicator.classList.remove('speaking');
+                }
             };
 
             // Start playback; catch any errors silently (e.g., autoplay blocked)
             audioEl.play().then(function() {
                 // Show indicator when audio successfully starts
-                ttsIndicator.classList.add('speaking');
+                if (ttsIndicator) {
+                    ttsIndicator.classList.add('speaking');
+                }
             }).catch(function(err) {
                 console.warn('Audio playback failed:', err);
-                ttsIndicator.classList.remove('speaking');
+                if (ttsIndicator) {
+                    ttsIndicator.classList.remove('speaking');
+                }
             });
         }
 
