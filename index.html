@@ -1229,57 +1229,57 @@
         const usePreRecordedAudio = true;
         // Base path where the MP3 files reside relative to this HTML file
         // Use the simplified audio folder.  All sanitized MP3 files live in the
-        // `audio` directory relative to this HTML file.  Do not include a trailing slash.
-        // Base path for audio files. Files are stored at the repository root.
-        const audioBasePath = '';
+        // `audio` directory relative to this HTML file.
+        // Base path for audio files. Files are stored in the audio/ directory.
+        const audioBasePath = 'audio/';
         // Map of segment id to file name.  These names must match the files
         // contained in the audio directory exactly.
         const audioMap = {
-            0: 'SEGMENT 0 30sec INTRODUCTION.mp3',
-            1: 'SEGMENT 1 THE 5Rs FRAMEWORK.mp3',
-            2: 'SEGMENT 2 RELATIONSHIPS - Element 1.mp3',
-            3: 'SEGMENT 3 RELATIONSHIPS - Element 2.mp3',
-            4: 'SEGMENT 4 RELATIONSHIPS - Element 3.mp3',
-            5: 'SEGMENT 5 RELATIONSHIPS - Element 4.mp3',
-            6: 'SEGMENT 6 ROUTINES - Element 5.mp3',
-            7: 'SEGMENT 7 ROUTINES - Element 6.mp3',
-            8: 'SEGMENT 8 ROUTINES - Element 7.mp3',
-            9: 'SEGMENT 9 RELEVANCE - Element 8.mp3',
-            10: 'SEGMENT 10 RELEVANCE - Element 9.mp3',
-            11: 'SEGMENT 11 RELEVANCE - Element 10.mp3',
-            12: 'SEGMENT 12 RELEVANCE - Element 11.mp3',
-            13: 'SEGMENT 13 RIGOR - Introduction.mp3',
-            14: 'SEGMENT 14 RIGOR - I Do Phase.mp3',
-            15: 'SEGMENT 15 RIGOR - Teacher Note.mp3',
-            16: 'SEGMENT 16 RIGOR - We Do Phase.mp3',
-            17: 'SEGMENT 17 RIGOR - Biophilic Metaphor.mp3',
-            18: 'SEGMENT 18 RIGOR - You Do Phase.mp3',
-            19: 'SEGMENT 19 REFLECTION - Element 26.mp3',
-            20: 'SEGMENT 20 REFLECTION - Assessment.mp3',
-            21: 'SEGMENT 21 REFLECTION - Teacher Note.mp3',
-            22: 'SEGMENT 22 MTSS - Tiered Supports.mp3',
-            23: 'SEGMENT 23 MTSS - Tier 2.mp3',
-            24: 'SEGMENT 24 MTSS - Tier 3.mp3',
-            25: 'SEGMENT 25 CO-TEACHING - Relationships & Routines.mp3',
-            26: 'SEGMENT 26 CO-TEACHING - Rigor Phase.mp3',
-            27: 'SEGMENT 27 CO-TEACHING - Reflection.mp3',
-            28: 'SEGMENT 28 APPENDIX - Section 1 Intro.mp3',
-            29: 'SEGMENT 29 APPENDIX - Digital Resources.mp3',
-            30: 'SEGMENT 30 APPENDIX - Section 2 Text Assets.mp3',
-            31: 'SEGMENT 31 APPENDIX - Modified Materials.mp3',
-            32: 'SEGMENT 32 APPENDIX - Copy & Paste Ready.mp3',
-            33: 'SEGMENT 33 APPENDIX - Section 3 Visual Prompts.mp3',
-            34: 'SEGMENT 34 APPENDIX - AI Image Generation.mp3',
-            35: 'SEGMENT 35 DUAL TRACK - Teacher Notes.mp3',
-            36: 'SEGMENT 36 DUAL TRACK - Student Notes.mp3',
-            37: 'SEGMENT 37 DUAL TRACK - Implementation.mp3',
-            38: 'SEGMENT 38 CLOSING - 5Rs Framework.mp3',
-            39: 'SEGMENT 39 CLOSING - Daily Structure.mp3',
-            40: 'SEGMENT 40 CLOSING - Cultural Responsiveness.mp3',
-            41: 'SEGMENT 41 CLOSING - MTSS & Co-Teaching.mp3',
-            42: 'SEGMENT 42 CLOSING - Complete Toolkit.mp3',
-            43: 'SEGMENT 43 CLOSING - Not Just a Lesson Plan.mp3',
-            44: 'SEGMENT 44 CLOSING - Final Message.mp3'
+            0: 'segment-00.mp3',
+            1: 'segment-01.mp3',
+            2: 'segment-02.mp3',
+            3: 'segment-03.mp3',
+            4: 'segment-04.mp3',
+            5: 'segment-05.mp3',
+            6: 'segment-06.mp3',
+            7: 'segment-07.mp3',
+            8: 'segment-08.mp3',
+            9: 'segment-09.mp3',
+            10: 'segment-10.mp3',
+            11: 'segment-11.mp3',
+            12: 'segment-12.mp3',
+            13: 'segment-13.mp3',
+            14: 'segment-14.mp3',
+            15: 'segment-15.mp3',
+            16: 'segment-16.mp3',
+            17: 'segment-17.mp3',
+            18: 'segment-18.mp3',
+            19: 'segment-19.mp3',
+            20: 'segment-20.mp3',
+            21: 'segment-21.mp3',
+            22: 'segment-22.mp3',
+            23: 'segment-23.mp3',
+            24: 'segment-24.mp3',
+            25: 'segment-25.mp3',
+            26: 'segment-26.mp3',
+            27: 'segment-27.mp3',
+            28: 'segment-28.mp3',
+            29: 'segment-29.mp3',
+            30: 'segment-30.mp3',
+            31: 'segment-31.mp3',
+            32: 'segment-32.mp3',
+            33: 'segment-33.mp3',
+            34: 'segment-34.mp3',
+            35: 'segment-35.mp3',
+            36: 'segment-36.mp3',
+            37: 'segment-37.mp3',
+            38: 'segment-38.mp3',
+            39: 'segment-39.mp3',
+            40: 'segment-40.mp3',
+            41: 'segment-41.mp3',
+            42: 'segment-42.mp3',
+            43: 'segment-43.mp3',
+            44: 'segment-44.mp3'
         };
         // Grab the audio element used for playback
         const audioEl = document.getElementById('segmentAudio');
@@ -1423,6 +1423,18 @@
                 clearTimeout(segmentTimer);
                 segmentTimer = null;
             }
+            if (progressTimer) {
+                clearInterval(progressTimer);
+                progressTimer = null;
+            }
+            // Stop any playing audio and reset event handlers
+            if (audioEl) {
+                audioEl.pause();
+                audioEl.currentTime = 0;
+                audioEl.ontimeupdate = null;
+                audioEl.onended = null;
+            }
+        }
 
         /**
          * Play the pre‑recorded MP3 associated with the current segment.  This
@@ -1474,18 +1486,6 @@
             audioEl.play().catch(function(err) {
                 console.warn('Audio playback failed:', err);
             });
-        }
-            if (progressTimer) {
-                clearInterval(progressTimer);
-                progressTimer = null;
-            }
-            // Stop any playing audio and reset event handlers
-            if (audioEl) {
-                audioEl.pause();
-                audioEl.currentTime = 0;
-                audioEl.ontimeupdate = null;
-                audioEl.onended = null;
-            }
         }
 
         function previousSegment() {
