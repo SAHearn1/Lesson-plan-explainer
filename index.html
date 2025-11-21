@@ -3,185 +3,390 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RootWork Lesson Plan Explainer</title>
+    <title>RootWork Framework Lesson Plan Explainer - Dr. Hearn</title>
+    
     <style>
-        /* Reset and Base Styles */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        :root {
-            --primary-color: #2563eb;
-            --secondary-color: #7c3aed;
-            --highlight-color: #fbbf24;
-            --text-color: #1f2937;
-            --bg-color: #ffffff;
-            --panel-bg: #f9fafb;
-            --border-color: #e5e7eb;
-            --success-color: #10b981;
-            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-        }
-
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            font-family: 'Georgia', 'Times New Roman', serif;
+            background: linear-gradient(135deg, #f0f4f0 0%, #d4e4d4 100%);
+            color: #2d3e2d;
             line-height: 1.6;
-            color: var(--text-color);
-            background-color: var(--bg-color);
         }
 
-        /* Layout */
         .container {
-            display: flex;
-            height: 100vh;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.5rem;
+        }
+
+        /* RootWork Branding Header */
+        .header {
+            background: linear-gradient(135deg, #2d5016 0%, #4a7c2f 100%);
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(45, 80, 22, 0.25);
+            padding: 2.5rem 2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
             overflow: hidden;
         }
 
-        /* Content Panel */
-        .content-panel {
-            flex: 1;
-            overflow-y: auto;
-            padding: 2rem;
-            background-color: var(--bg-color);
-        }
-
-        /* Explainer Panel */
-        .explainer-panel {
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
             width: 400px;
-            background-color: var(--panel-bg);
-            border-left: 1px solid var(--border-color);
+            height: 400px;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .brand-logo {
+            color: #a8d48f;
+            font-size: 0.875rem;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
             display: flex;
-            flex-direction: column;
-            box-shadow: var(--shadow-lg);
+            align-items: center;
+            gap: 0.5rem;
         }
 
-        .explainer-header {
-            padding: 1.5rem;
-            border-bottom: 1px solid var(--border-color);
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: white;
+        /* Replace the unicode seedling with an actual logo image. The logo will be
+           inserted directly into the markup, so we remove the pseudo-element. */
+        .brand-logo::before {
+            content: '';
         }
 
-        .explainer-header h2 {
-            font-size: 1.25rem;
+        /* Style for the embedded logo image inside the brand logo. */
+        .brand-logo img {
+            height: 1.5rem;
+            width: 1.5rem;
+            margin-right: 0.5rem;
+            vertical-align: middle;
+        }
+
+        .header h1 {
+            font-size: 2.25rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .header p {
+            color: #c8e6b8;
+            font-size: 1.1rem;
+            font-style: italic;
+        }
+
+        .tagline {
+            color: #a8d48f;
+            font-size: 0.875rem;
+            margin-top: 0.75rem;
+            font-weight: 500;
+        }
+
+        /* Main Grid */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 1.5rem;
+        }
+
+        @media (max-width: 1024px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Lesson Plan Panel */
+        .lesson-panel {
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(45, 80, 22, 0.15);
+            border: 2px solid #a8d48f;
+            padding: 2rem;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        .lesson-panel::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        .lesson-panel::-webkit-scrollbar-track {
+            background: #f0f4f0;
+            border-radius: 5px;
+        }
+
+        .lesson-panel::-webkit-scrollbar-thumb {
+            background: #4a7c2f;
+            border-radius: 5px;
+        }
+
+        .lesson-panel::-webkit-scrollbar-thumb:hover {
+            background: #2d5016;
+        }
+
+        .lesson-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 3px solid #a8d48f;
+        }
+
+        .lesson-title h2 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #2d5016;
             margin-bottom: 0.5rem;
         }
 
-        .explainer-content {
-            flex: 1;
-            overflow-y: auto;
+        .lesson-title .subtitle {
+            color: #4a7c2f;
+            margin-bottom: 0.25rem;
+            font-weight: 500;
+        }
+
+        .lesson-title .grade {
+            color: #6b9645;
+            font-size: 0.875rem;
+        }
+
+        /* Section Styling */
+        .section {
+            margin-bottom: 2rem;
+            padding-top: 1.5rem;
+        }
+
+        .section-relationships {
+            border-top: 4px solid #10b981;
+        }
+
+        .section-routines {
+            border-top: 4px solid #f97316;
+        }
+
+        .section-relevance {
+            border-top: 4px solid #ec4899;
+        }
+
+        .section-rigor {
+            border-top: 4px solid #9333ea;
+        }
+
+        .section-reflection {
+            border-top: 4px solid #3b82f6;
+        }
+
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .section-relationships .section-title { color: #059669; }
+        .section-routines .section-title { color: #ea580c; }
+        .section-relevance .section-title { color: #db2777; }
+        .section-rigor .section-title { color: #7c3aed; }
+        .section-reflection .section-title { color: #2563eb; }
+
+        .section-icon {
+            font-size: 1.5rem;
+        }
+
+        .subsection-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #7c3aed;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        /* Content Items */
+        .content-item {
+            padding: 0.875rem;
+            margin-bottom: 0.75rem;
+            border-radius: 8px;
+            transition: all 0.5s ease;
+            background-color: transparent;
+            border-left: 3px solid transparent;
+        }
+
+        .content-item.teacher-note {
+            background-color: #fef9c3;
+            font-style: italic;
+            border-left-color: #eab308;
+        }
+
+        .content-item.student-note {
+            background-color: #dbeafe;
+            font-style: italic;
+            border-left-color: #3b82f6;
+        }
+
+        .content-item.highlighted {
+            transform: scale(1.02);
+            box-shadow: 0 6px 20px rgba(45, 80, 22, 0.2);
+            animation: slideIn 0.5s ease-out;
+            border-left-width: 4px;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px) scale(1);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1.02);
+            }
+        }
+
+        /* Control Panel */
+        .control-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .panel-card {
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(45, 80, 22, 0.15);
+            border: 2px solid #a8d48f;
             padding: 1.5rem;
         }
 
-        .narration-text {
-            font-size: 1rem;
-            line-height: 1.8;
-            color: var(--text-color);
+        /* Segment Info */
+        .segment-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.75rem;
+        }
+
+        .segment-number {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #4a7c2f;
+        }
+
+        .segment-time {
+            font-size: 0.75rem;
+            color: #6b9645;
+            background: #f0f4f0;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+        }
+
+        .segment-title {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: #2d5016;
             margin-bottom: 1rem;
         }
 
-        /* Controls */
-        .controls {
-            padding: 1.5rem;
-            border-top: 1px solid var(--border-color);
-            background-color: white;
+        /* Progress Bar */
+        .progress-container {
+            width: 100%;
+            height: 10px;
+            background-color: #e8f0e8;
+            border-radius: 9999px;
+            margin-bottom: 1.25rem;
+            overflow: hidden;
+            border: 1px solid #c8e6b8;
         }
 
         .progress-bar {
-            width: 100%;
-            height: 6px;
-            background-color: var(--border-color);
-            border-radius: 3px;
-            margin-bottom: 1rem;
-            overflow: hidden;
-        }
-
-        .progress-fill {
             height: 100%;
-            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
-            border-radius: 3px;
-            transition: width 0.3s ease;
+            background: linear-gradient(90deg, #4a7c2f 0%, #6b9645 100%);
+            border-radius: 9999px;
+            transition: width 0.1s linear;
         }
 
-        .button-group {
+        /* Narration Box */
+        .narration-box {
+            background: linear-gradient(135deg, #f8fdf8 0%, #f0f4f0 100%);
+            border-left: 4px solid #4a7c2f;
+            border-radius: 6px;
+            padding: 1rem;
+        }
+
+        .narration-text {
+            font-size: 0.875rem;
+            color: #2d3e2d;
+            line-height: 1.7;
+        }
+
+        /* Highlight Color Indicator */
+        .highlight-indicator {
+            margin-top: 1rem;
             display: flex;
-            gap: 0.75rem;
-            margin-bottom: 1rem;
+            align-items: center;
+            gap: 0.5rem;
         }
 
-        button {
-            flex: 1;
-            padding: 0.75rem 1rem;
-            border: none;
-            border-radius: 0.5rem;
+        .highlight-indicator-text {
+            font-size: 0.75rem;
+            color: #4a7c2f;
+            font-weight: 500;
+        }
+
+        .highlight-color-box {
+            width: 24px;
+            height: 24px;
+            border-radius: 4px;
+            border: 2px solid #a8d48f;
+        }
+
+        /* Controls */
+        .controls-header {
             font-size: 0.875rem;
             font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            box-shadow: var(--shadow);
-        }
-
-        button:hover {
-            transform: translateY(-1px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        button:active {
-            transform: translateY(0);
-        }
-
-        button:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: white;
-        }
-
-        .btn-secondary {
-            background-color: white;
-            color: var(--text-color);
-            border: 1px solid var(--border-color);
-        }
-
-        .step-info {
-            text-align: center;
-            font-size: 0.875rem;
-            color: #6b7280;
-            margin-top: 0.5rem;
-        }
-
-        /* TTS Controls */
-        .tts-controls {
-            padding: 1rem 1.5rem;
-            border-top: 1px solid var(--border-color);
-            background-color: #fef3c7;
+            color: #2d5016;
+            margin-bottom: 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
 
         .tts-toggle {
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            font-size: 0.875rem;
+            font-size: 0.75rem;
+            color: #4a7c2f;
         }
 
         .toggle-switch {
             position: relative;
             width: 44px;
             height: 24px;
-            background-color: #d1d5db;
+            background-color: #cbd5e1;
             border-radius: 12px;
             cursor: pointer;
             transition: background-color 0.3s;
         }
 
         .toggle-switch.active {
-            background-color: var(--success-color);
+            background-color: #4a7c2f;
         }
 
         .toggle-slider {
@@ -193,757 +398,1168 @@
             background-color: white;
             border-radius: 50%;
             transition: transform 0.3s;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
 
         .toggle-switch.active .toggle-slider {
             transform: translateX(20px);
         }
 
-        /* Content Styling */
-        .lesson-content {
-            max-width: 800px;
+        .controls-buttons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.875rem;
+            margin-bottom: 1.25rem;
         }
 
-        section {
-            margin-bottom: 3rem;
-            padding: 1.5rem;
-            border-radius: 0.5rem;
-            transition: all 0.3s ease;
+        .control-button {
+            border: none;
+            border-radius: 9999px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        section.highlighted {
-            background-color: #fef3c7;
-            border-left: 4px solid var(--highlight-color);
-            box-shadow: var(--shadow);
-            transform: scale(1.01);
+        .control-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
         }
 
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            color: var(--primary-color);
-            line-height: 1.2;
+        .control-button:not(:disabled):hover {
+            transform: scale(1.05);
         }
 
-        h2 {
-            font-size: 1.875rem;
-            margin-bottom: 1rem;
-            color: var(--secondary-color);
-            line-height: 1.3;
+        .button-small {
+            padding: 0.75rem;
+            background-color: #e8f0e8;
+            border: 2px solid #a8d48f;
         }
 
-        h3 {
-            font-size: 1.5rem;
-            margin-bottom: 0.75rem;
-            color: var(--text-color);
+        .button-small:not(:disabled):hover {
+            background-color: #c8e6b8;
         }
 
-        h4 {
-            font-size: 1.25rem;
-            margin-bottom: 0.5rem;
-            color: var(--text-color);
+        .button-play {
+            padding: 1rem;
+            background: linear-gradient(135deg, #4a7c2f 0%, #6b9645 100%);
+            color: white;
+            box-shadow: 0 4px 8px rgba(45, 80, 22, 0.3);
         }
 
-        p {
-            margin-bottom: 1rem;
+        .button-play:hover {
+            background: linear-gradient(135deg, #2d5016 0%, #4a7c2f 100%);
+            box-shadow: 0 6px 12px rgba(45, 80, 22, 0.4);
         }
 
-        ul, ol {
-            margin-left: 1.5rem;
-            margin-bottom: 1rem;
-        }
-
-        li {
-            margin-bottom: 0.5rem;
-        }
-
-        strong {
-            color: var(--primary-color);
-            font-weight: 600;
-        }
-
-        em {
-            color: var(--secondary-color);
-        }
-
-        .subsection {
-            margin-left: 1.5rem;
-            padding-left: 1rem;
-            border-left: 3px solid var(--border-color);
-        }
-
-        /* Visual Indicators */
-        .highlight-marker {
-            display: inline-block;
-            width: 8px;
-            height: 8px;
-            background-color: var(--highlight-color);
-            border-radius: 50%;
-            margin-right: 0.5rem;
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% {
-                opacity: 1;
-                transform: scale(1);
-            }
-            50% {
-                opacity: 0.5;
-                transform: scale(1.2);
-            }
-        }
-
-        /* Responsive Design */
-        @media (max-width: 1024px) {
-            .container {
-                flex-direction: column;
-            }
-
-            .explainer-panel {
-                width: 100%;
-                height: 50vh;
-                border-left: none;
-                border-top: 1px solid var(--border-color);
-            }
-
-            .content-panel {
-                height: 50vh;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .content-panel {
-                padding: 1rem;
-            }
-
-            h1 {
-                font-size: 2rem;
-            }
-
-            h2 {
-                font-size: 1.5rem;
-            }
-
-            .explainer-panel {
-                width: 100%;
-            }
-        }
-
-        /* Accessibility */
-        button:focus,
-        .toggle-switch:focus {
-            outline: 2px solid var(--primary-color);
-            outline-offset: 2px;
-        }
-
-        /* Smooth Scrolling */
-        .content-panel {
-            scroll-behavior: smooth;
-        }
-
-        /* Loading State */
-        .loading {
+        .controls-status {
             text-align: center;
-            padding: 2rem;
-            color: #6b7280;
+            font-size: 0.75rem;
+            color: #6b9645;
+            font-weight: 500;
         }
 
-        /* Status Indicator */
-        .status-indicator {
-            display: inline-block;
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            margin-right: 0.5rem;
+        /* Legend */
+        .legend-title {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #2d5016;
+            margin-bottom: 1rem;
         }
 
-        .status-indicator.playing {
-            background-color: var(--success-color);
+        .legend-items {
+            display: flex;
+            flex-direction: column;
+            gap: 0.625rem;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.625rem;
+            font-size: 0.75rem;
+            color: #4a7c2f;
+        }
+
+        .legend-color {
+            width: 16px;
+            height: 16px;
+            border-radius: 4px;
+            flex-shrink: 0;
+            border: 1px solid #a8d48f;
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 1.5rem;
+            background: linear-gradient(135deg, #2d5016 0%, #4a7c2f 100%);
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(45, 80, 22, 0.25);
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .footer p {
+            font-size: 0.875rem;
+            color: #c8e6b8;
+        }
+
+        .footer p:last-child {
+            font-size: 0.75rem;
+            color: #a8d48f;
+            margin-top: 0.5rem;
+        }
+
+        .footer-brand {
+            color: #ffffff;
+            font-weight: 600;
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* SVG Icons */
+        .icon {
+            width: 24px;
+            height: 24px;
+        }
+
+        .icon-small {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* TTS Indicator */
+        .tts-indicator {
+            display: none;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.75rem;
+            color: #4a7c2f;
+            margin-top: 0.75rem;
+            padding: 0.5rem;
+            background: #f0f4f0;
+            border-radius: 6px;
+        }
+
+        .tts-indicator.speaking {
+            display: flex;
+        }
+
+        .tts-icon {
             animation: pulse 1.5s ease-in-out infinite;
         }
 
-        .status-indicator.paused {
-            background-color: #f59e0b;
-        }
-
-        /* Additional Utility Classes */
-        .text-muted {
-            color: #6b7280;
-        }
-
-        .mb-2 {
-            margin-bottom: 0.5rem;
-        }
-
-        .mb-4 {
-            margin-bottom: 1rem;
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Main Content Panel -->
-        <div class="content-panel" id="contentPanel">
-            <div class="lesson-content" id="lessonContent">
-                <h1>RootWork Lesson Plan</h1>
-                
-                <section id="section-0" data-section="0">
-                    <h2>Introduction: Understanding RootWork</h2>
-                    <p>RootWork is a comprehensive educational framework designed to build foundational skills through interconnected learning experiences. This lesson plan demonstrates exceptional pedagogical design through its systematic approach to skill development, relationship building, and knowledge integration.</p>
-                    <p>The structure follows best practices in education by starting with relationship-building and progressively layering complex concepts while maintaining clear connections between all elements.</p>
-                </section>
-
-                <section id="section-1" data-section="1">
-                    <h2>1. Relationships & Community Building</h2>
-                    <p><strong>Why this is exceptional:</strong> The lesson begins with relationship-building rather than jumping directly into content. This follows research-backed practices that show students learn best when they feel safe and connected to their learning community.</p>
-                    
-                    <div class="subsection">
-                        <h3>Opening Circle (10 minutes)</h3>
-                        <ul>
-                            <li><strong>Structured sharing:</strong> Each student shares one thing they're grateful for today</li>
-                            <li><strong>Active listening practice:</strong> Students practice reflective listening techniques</li>
-                            <li><strong>Community norms review:</strong> Revisit and reinforce classroom agreements</li>
-                        </ul>
-                        <p>This creates psychological safety and activates prior knowledge about group dynamics.</p>
-                    </div>
-
-                    <div class="subsection">
-                        <h3>Partner Connection Activity (5 minutes)</h3>
-                        <p>Students pair up for a quick "think-pair-share" on what they hope to learn today. This:</p>
-                        <ul>
-                            <li>Activates curiosity and purpose</li>
-                            <li>Builds peer relationships</li>
-                            <li>Provides formative assessment data for the teacher</li>
-                        </ul>
-                    </div>
-                </section>
-
-                <section id="section-2" data-section="2">
-                    <h2>2. Learning Objectives & Success Criteria</h2>
-                    <p><strong>Why this is exceptional:</strong> Objectives are clearly stated in student-friendly language, and success criteria are co-created with students, increasing ownership and understanding.</p>
-                    
-                    <div class="subsection">
-                        <h3>Today's Learning Goals:</h3>
-                        <ol>
-                            <li><strong>Core Skill:</strong> Students will analyze complex systems by identifying root causes and interconnections</li>
-                            <li><strong>Application:</strong> Students will apply root cause analysis to a real-world scenario</li>
-                            <li><strong>Collaboration:</strong> Students will work effectively in teams to solve problems</li>
-                        </ol>
-                    </div>
-
-                    <div class="subsection">
-                        <h3>Success Criteria (Co-created):</h3>
-                        <p>Students help define what success looks like:</p>
-                        <ul>
-                            <li>I can identify at least three interconnected factors in a system</li>
-                            <li>I can distinguish between symptoms and root causes</li>
-                            <li>I can explain my thinking using evidence</li>
-                            <li>I can listen to and build upon my teammates' ideas</li>
-                        </ul>
-                    </div>
-                </section>
-
-                <section id="section-3" data-section="3">
-                    <h2>3. Direct Instruction & Modeling</h2>
-                    <p><strong>Why this is exceptional:</strong> The teacher uses multiple modalities (visual, auditory, kinesthetic) and the "I do, We do, You do" gradual release model.</p>
-                    
-                    <div class="subsection">
-                        <h3>Introduction to Root Cause Analysis (15 minutes)</h3>
-                        <ul>
-                            <li><strong>Visual:</strong> Teacher displays a "root system" diagram showing how problems branch from core issues</li>
-                            <li><strong>Real-world example:</strong> Analyzes why a plant might be wilting (surface symptoms vs. root problems)</li>
-                            <li><strong>Think-aloud:</strong> Teacher models their thinking process explicitly</li>
-                            <li><strong>Multiple representations:</strong> Uses metaphor, diagram, and concrete example</li>
-                        </ul>
-                    </div>
-
-                    <div class="subsection">
-                        <h3>Guided Practice (10 minutes)</h3>
-                        <p>Teacher and students work through a scenario together:</p>
-                        <ul>
-                            <li>Scenario: Traffic congestion in their city</li>
-                            <li>Students suggest surface-level observations</li>
-                            <li>Teacher guides them to dig deeper with strategic questions</li>
-                            <li>Class co-constructs a root cause analysis diagram</li>
-                        </ul>
-                    </div>
-                </section>
-
-                <section id="section-4" data-section="4">
-                    <h2>4. Active Learning & Application</h2>
-                    <p><strong>Why this is exceptional:</strong> Students immediately apply new learning in a structured but open-ended way, with clear scaffolds and differentiation options.</p>
-                    
-                    <div class="subsection">
-                        <h3>Small Group Investigation (25 minutes)</h3>
-                        <p>Teams of 3-4 students choose from:</p>
-                        <ul>
-                            <li><strong>Option A (Approaching):</strong> Analyze a provided scenario with guided questions</li>
-                            <li><strong>Option B (On-level):</strong> Choose from 3 real-world scenarios to analyze</li>
-                            <li><strong>Option C (Advanced):</strong> Identify and analyze a problem from their own community</li>
-                        </ul>
-                        
-                        <h4>Structured Process:</h4>
-                        <ol>
-                            <li>Identify the problem (2 minutes)</li>
-                            <li>List observable symptoms (5 minutes)</li>
-                            <li>Ask "why" five times to dig deeper (8 minutes)</li>
-                            <li>Create visual representation (10 minutes)</li>
-                        </ol>
-                    </div>
-
-                    <div class="subsection">
-                        <h3>Gallery Walk (10 minutes)</h3>
-                        <p>Groups display their work and engage in structured peer feedback:</p>
-                        <ul>
-                            <li>Students rotate through other groups' work</li>
-                            <li>Leave written feedback on sticky notes using "I notice..." and "I wonder..." stems</li>
-                            <li>Builds communication skills and exposes students to multiple perspectives</li>
-                        </ul>
-                    </div>
-                </section>
-
-                <section id="section-5" data-section="5">
-                    <h2>5. Reflection & Metacognition</h2>
-                    <p><strong>Why this is exceptional:</strong> The lesson explicitly builds metacognitive skills by having students reflect on their learning process, not just the content.</p>
-                    
-                    <div class="subsection">
-                        <h3>Individual Reflection (5 minutes)</h3>
-                        <p>Students write in learning journals responding to prompts:</p>
-                        <ul>
-                            <li>What strategy did you use to dig beneath surface symptoms?</li>
-                            <li>When did you feel challenged today? How did you respond?</li>
-                            <li>How might you use root cause thinking outside of class?</li>
-                        </ul>
-                    </div>
-
-                    <div class="subsection">
-                        <h3>Sharing Circle (5 minutes)</h3>
-                        <p>Volunteers share one insight about their learning process. This:</p>
-                        <ul>
-                            <li>Validates different approaches to learning</li>
-                            <li>Builds a "learning community" culture</li>
-                            <li>Provides closure and celebration</li>
-                        </ul>
-                    </div>
-                </section>
-
-                <section id="section-6" data-section="6">
-                    <h2>6. Assessment Strategy</h2>
-                    <p><strong>Why this is exceptional:</strong> Uses multiple forms of assessment aligned to objectives, providing comprehensive feedback without overwhelming students with tests.</p>
-                    
-                    <div class="subsection">
-                        <h3>Formative Assessment:</h3>
-                        <ul>
-                            <li><strong>Observation notes:</strong> Teacher circulates during group work with a checklist</li>
-                            <li><strong>Exit ticket:</strong> Quick written response to check understanding</li>
-                            <li><strong>Peer feedback:</strong> From gallery walk provides insight into student thinking</li>
-                        </ul>
-                    </div>
-
-                    <div class="subsection">
-                        <h3>Summative Assessment:</h3>
-                        <ul>
-                            <li><strong>Group product:</strong> Root cause analysis diagram evaluated with rubric</li>
-                            <li><strong>Self-assessment:</strong> Students rate themselves against success criteria</li>
-                            <li><strong>Reflection journal:</strong> Demonstrates metacognitive development</li>
-                        </ul>
-                    </div>
-                </section>
-
-                <section id="section-7" data-section="7">
-                    <h2>7. Differentiation & Universal Design</h2>
-                    <p><strong>Why this is exceptional:</strong> Multiple entry points and pathways ensure all students can access and excel with the content.</p>
-                    
-                    <div class="subsection">
-                        <h3>Built-in Supports:</h3>
-                        <ul>
-                            <li><strong>Choice in scenarios:</strong> Students select complexity level</li>
-                            <li><strong>Multiple modalities:</strong> Visual, auditory, kinesthetic activities</li>
-                            <li><strong>Flexible grouping:</strong> Teacher strategically groups students or allows choice</li>
-                            <li><strong>Sentence stems:</strong> Provided for students who need language support</li>
-                            <li><strong>Extended time option:</strong> For students who need it</li>
-                        </ul>
-                    </div>
-                </section>
-
-                <section id="section-8" data-section="8">
-                    <h2>8. Extension & Enrichment</h2>
-                    <p><strong>Why this is exceptional:</strong> Provides meaningful challenge for students who master concepts quickly, preventing boredom and promoting growth.</p>
-                    
-                    <div class="subsection">
-                        <h3>For Advanced Learners:</h3>
-                        <ul>
-                            <li>Research additional root cause analysis frameworks (5 Whys, Fishbone Diagram, Fault Tree Analysis)</li>
-                            <li>Apply multiple frameworks to the same problem and compare insights</li>
-                            <li>Create a presentation teaching one framework to peers</li>
-                            <li>Identify a school-wide problem and present analysis to administration</li>
-                        </ul>
-                    </div>
-                </section>
-
-                <section id="section-9" data-section="9">
-                    <h2>9. Home Connection & Transfer</h2>
-                    <p><strong>Why this is exceptional:</strong> Explicitly connects classroom learning to students' lives beyond school, promoting transfer and relevance.</p>
-                    
-                    <div class="subsection">
-                        <h3>Take-Home Challenge:</h3>
-                        <p>Students select one of:</p>
-                        <ul>
-                            <li>Interview a family member about a problem they've solved at work, analyzing their approach</li>
-                            <li>Identify a household challenge and use root cause analysis to propose a solution</li>
-                            <li>Watch a news story and analyze the root causes of the issue presented</li>
-                        </ul>
-                        <p>Students share findings in next class, creating continuity and demonstrating real-world application.</p>
-                    </div>
-                </section>
-
-                <section id="section-10" data-section="10">
-                    <h2>Appendix: Why This Lesson Plan Works</h2>
-                    <p><strong>Summary of Exceptional Elements:</strong></p>
-                    
-                    <div class="subsection">
-                        <h3>Research-Based Practices:</h3>
-                        <ol>
-                            <li><strong>Gradual Release Model:</strong> I do, We do, You do structure scaffolds learning</li>
-                            <li><strong>Multiple Modalities:</strong> Addresses diverse learning preferences</li>
-                            <li><strong>Metacognition:</strong> Students reflect on their learning process</li>
-                            <li><strong>Authentic Application:</strong> Real-world connections make learning meaningful</li>
-                            <li><strong>Formative Assessment:</strong> Continuous feedback loop informs instruction</li>
-                        </ol>
-                    </div>
-
-                    <div class="subsection">
-                        <h3>Social-Emotional Learning Integration:</h3>
-                        <ul>
-                            <li>Relationship building creates psychological safety</li>
-                            <li>Collaboration skills explicitly taught and practiced</li>
-                            <li>Student choice increases autonomy and engagement</li>
-                            <li>Reflection builds self-awareness</li>
-                        </ul>
-                    </div>
-
-                    <div class="subsection">
-                        <h3>Equity & Access:</h3>
-                        <ul>
-                            <li>Multiple entry points allow all students to participate meaningfully</li>
-                            <li>Varied assessment methods capture diverse strengths</li>
-                            <li>Flexible pacing accommodates different learning speeds</li>
-                            <li>Universal Design for Learning principles embedded throughout</li>
-                        </ul>
-                    </div>
-
-                    <div class="subsection">
-                        <h3>Sustainability:</h3>
-                        <ul>
-                            <li>Skills taught (root cause analysis, collaboration) transfer to countless contexts</li>
-                            <li>Metacognitive practices help students become independent learners</li>
-                            <li>Community-building creates lasting positive classroom culture</li>
-                        </ul>
-                    </div>
-                </section>
+        <!-- RootWork Branded Header -->
+        <div class="header">
+            <div class="header-content">
+                <div class="brand-logo"><img src="icons/logo.png" alt="RootWork Framework Logo">RootWork Framework</div>
+                <h1>Lesson Plan Explainer</h1>
+                <p>A Pedagogical Analysis of the 5Rs Framework in Action</p>
+                <div class="tagline">Root • Grow • Bloom: Trauma-Informed STEAM Education</div>
             </div>
         </div>
 
-        <!-- Explainer Panel -->
-        <div class="explainer-panel">
-            <div class="explainer-header">
-                <h2><span class="status-indicator" id="statusIndicator"></span>Explainer Track</h2>
-                <p class="text-muted" style="font-size: 0.875rem; margin: 0;">Interactive guided walkthrough</p>
+        <div class="main-grid">
+            <!-- Lesson Plan Content -->
+            <div class="lesson-panel" id="lessonPanel">
+                <div class="lesson-title">
+                    <h2>TRAUMA-INFORMED STEAM LESSON PLAN</h2>
+                    <p class="subtitle">Unit: Folk Literature & Historical Roots of Savannah, GA</p>
+                    <p class="grade">Grade 8 | English Language Arts & Social Studies Integration | 90-Minute Block</p>
+                </div>
+
+                <!-- Relationships Section -->
+                <div class="section section-relationships">
+                    <h3 class="section-title"><span class="section-icon">🤝</span>Relationships (15 minutes)</h3>
+                    <div class="content-item" data-segment="2">Students enter to find tables arranged in groups of four with a small potted plant centerpiece at each table.</div>
+                    <div class="content-item" data-segment="3">Begin with a "Story Circle Check-In" where students share their name and complete the prompt: "A story I remember from my childhood is..." using a soft-toss ball for speaker designation.</div>
+                    <div class="content-item" data-segment="4">After each student shares, they water the plant at their table with a small watering can, symbolizing how stories, like plants, need care and attention to grow.</div>
+                    <div class="content-item teacher-note" data-segment="5">[Teacher Note: Monitor for signs of emotional dysregulation during story sharing. Some students may have complicated relationships with childhood memories. Have alternative prompts ready such as "A story I've heard recently is..."]</div>
+                </div>
+
+                <!-- Routines Section -->
+                <div class="section section-routines">
+                    <h3 class="section-title"><span class="section-icon">🔄</span>Routines (10 minutes)</h3>
+                    <div class="content-item" data-segment="6">Project the "Garden of Learning Norms" on the board, presented as a visual garden where each norm is a different plant.</div>
+                    <div class="content-item" data-segment="7">Students receive their "Field Journal" notebooks, decorated with pressed flower covers, which will serve as their consistent workspace throughout the unit.</div>
+                    <div class="content-item" data-segment="8">Establish the daily routine of "Root, Grow, Bloom" - where Root represents our opening activities, Grow represents our work time, and Bloom represents our sharing and reflection.</div>
+                    <div class="content-item teacher-note">[Teacher Note: The consistent journal structure provides executive function support. Consider having templates ready for students who need additional organizational scaffolding.]</div>
+                </div>
+
+                <!-- Relevance Section -->
+                <div class="section section-relevance">
+                    <h3 class="section-title"><span class="section-icon">🌍</span>Relevance (15 minutes)</h3>
+                    <div class="content-item" data-segment="9">Display historical photographs of Savannah's squares and gardens alongside contemporary images of the same locations. Facilitate a "Then and Now Gallery Walk" where students circulate with sticky notes, recording observations about what has changed and what has remained constant.</div>
+                    <div class="content-item" data-segment="10">Introduce the concept of "story seeds" - the idea that folk tales from Savannah's past contain seeds of truth about historical experiences, particularly focusing on the Gullah-Geechee storytelling tradition and its connection to agricultural knowledge.</div>
+                    <div class="content-item" data-segment="11">Share a brief audio recording of a Gullah folk tale about rice cultivation, helping students understand how enslaved Africans used stories to preserve agricultural wisdom and cultural identity.</div>
+                    <div class="content-item teacher-note" data-segment="12">[Teacher Note: Be sensitive to students who may not have access to family storytelling traditions. Emphasize that stories come from many sources - books, movies, songs, and community spaces are all valid.]</div>
+                </div>
+
+                <!-- Rigor Section -->
+                <div class="section section-rigor">
+                    <h3 class="section-title" data-segment="13"><span class="section-icon">📚</span>Rigor: Work Session (35 minutes)</h3>
+                    
+                    <h4 class="subsection-title">I Do - Direct Instruction (10 minutes)</h4>
+                    <div class="content-item">Model the process of citing textual evidence using a projected excerpt from Cornelia Bailey's "God, Dr. Buzzard, and the Bolito Man," focusing on a passage about traditional plant medicine on Sapelo Island.</div>
+                    <div class="content-item" data-segment="14">Using a think-aloud protocol, show students how to construct a claim such as "Enslaved Africans preserved African medicinal plant knowledge through oral traditions" and support it with specific quoted evidence.</div>
+                    <div class="content-item teacher-note" data-segment="15">[Teacher Note: Slow down your think-aloud process and make your cognitive moves visible. Students with processing differences need to see how you navigate the text, not just the final product.]</div>
+                    
+                    <h4 class="subsection-title">We Do - Collaborative Practice (15 minutes)</h4>
+                    <div class="content-item">Students work in their table groups with a one-page excerpt from "Drums and Shadows," a collection of Gullah-Geechee folk narratives from coastal Georgia.</div>
+                    <div class="content-item" data-segment="16">The general education teacher facilitates two groups while the special education co-teacher provides intensive support to two groups with students who have IEPs, using highlighters to help students identify key passages and providing sentence frames for claim construction.</div>
+                    <div class="content-item" data-segment="17">Groups record their findings on chart paper designed to look like a garden plot, with the claim as the "seed" and evidence as the "roots."</div>
+                    <div class="content-item teacher-note">[Teacher Note: Circulate actively and listen for misconceptions about what constitutes strong evidence versus summary. Address these in real-time through questioning rather than correction.]</div>
+                    
+                    <h4 class="subsection-title">You Do - Independent Application (10 minutes)</h4>
+                    <div class="content-item">Students independently read a brief folk tale called "Why the Evergreen Trees Keep Their Leaves" from Savannah's Native American Creek tradition.</div>
+                    <div class="content-item" data-segment="18">Provide differentiated versions: some students receive the full text, others receive a modified version with key passages pre-highlighted, and students with significant reading challenges receive an illustrated version with simplified language.</div>
+                    <div class="content-item teacher-note">[Teacher Note: This independent work is diagnostic. Note which students struggle with identifying relevant evidence versus those who struggle with the citation format itself.]</div>
+                </div>
+
+                <!-- Reflection Section -->
+                <div class="section section-reflection">
+                    <h3 class="section-title"><span class="section-icon">💭</span>Reflection (15 minutes)</h3>
+                    <div class="content-item" data-segment="19">Students participate in a "Harvest Circle" where they return to their morning groups to share their claims and evidence from the independent work.</div>
+                    <div class="content-item" data-segment="20">The lesson concludes with students completing an exit ticket in their Field Journals responding to the prompt: "Using specific evidence from today's texts, explain one way that folk stories preserve historical knowledge. Include at least one properly cited quote."</div>
+                    <div class="content-item teacher-note" data-segment="21">[Teacher Note: The exit ticket is your formative assessment. Sort responses into three categories: students who can cite and explain evidence independently, those who can cite but struggle with explanation, and those who need support with both.]</div>
+                </div>
+
+                <!-- MTSS Section -->
+                <div class="section section-rigor">
+                    <h3 class="section-title" data-segment="22"><span class="section-icon">🎯</span>MTSS Tiered Supports</h3>
+                    <div class="content-item" data-segment="22"><strong>Tier 1 Universal Supports:</strong> Visual anchor charts, graphic organizers for ALL students, color-coding systems, consistent journal structure.</div>
+                    <div class="content-item" data-segment="23"><strong>Tier 2 Targeted Interventions:</strong> Pre-highlighted texts, sentence frames, word banks, small group reteaching, extended time.</div>
+                    <div class="content-item" data-segment="24"><strong>Tier 3 Intensive Interventions:</strong> One-on-one support, scribing services, simplified texts with visual supports, break cards, alternative demonstrations through recorded verbal explanation.</div>
+                    <div class="content-item teacher-note">[Teacher Note: This is sophisticated special education compliance. The lesson doesn't just mention differentiation - it specifies WHAT supports, for WHOM, and WHEN.]</div>
+                </div>
+
+                <!-- Co-Teaching Section -->
+                <div class="section section-routines">
+                    <h3 class="section-title" data-segment="25"><span class="section-icon">👥</span>Co-Teacher Actions</h3>
+                    <div class="content-item" data-segment="25"><strong>During Relationships and Routines:</strong> The special education teacher provides proximity control for students with behavioral IEPs.</div>
+                    <div class="content-item" data-segment="26"><strong>During Rigor:</strong> They lead parallel teaching with manipulatives.</div>
+                    <div class="content-item" data-segment="27"><strong>During Reflection:</strong> They facilitate a modified exit ticket station with verbal response options.</div>
+                    <div class="content-item teacher-note">[Teacher Note: This is complete role definition. Both teachers know exactly what they're doing at every moment.]</div>
+                </div>
+
+                <!-- Appendix Section -->
+                <div class="section section-relevance">
+                    <h3 class="section-title" data-segment="28"><span class="section-icon">📎</span>Appendix: Complete Implementation Toolkit</h3>
+                    
+                    <h4 class="subsection-title" data-segment="28">Section 1 - Curated Digital Resources</h4>
+                    <div class="content-item" data-segment="28">Every resource is vetted, connected to standards, and ready to use. For example: <strong>Gullah-Geechee Cultural Heritage Corridor Video</strong> (National Park Service) with annotations explaining WHY this resource matters and HOW it connects to your learning objectives.</div>
+                    <div class="content-item" data-segment="29">No more spending two hours Googling hoping to find something relevant. These are working URLs with pedagogical context.</div>
+                    
+                    <h4 class="subsection-title" data-segment="30">Section 2 - Generated Text-Based Assets</h4>
+                    <div class="content-item" data-segment="30">Ready-to-use, copy-and-paste graphic organizers with biophilic language: "Planting Claims & Growing Evidence," "The Seed," "First Root," "Second Root," "The Bloom."</div>
+                    <div class="content-item" data-segment="31">Modified exit tickets for IEP students with sentence starters, word banks, multiple choice scaffolds, and self-assessment tools already built in.</div>
+                    <div class="content-item" data-segment="32">You can copy this, paste it into a Google Doc or worksheet maker, and you're done. No formatting, no designing - just implement.</div>
+                    
+                    <h4 class="subsection-title" data-segment="33">Section 3 - Visual Asset Prompt Log</h4>
+                    <div class="content-item" data-segment="33">Want an Evidence Tree bulletin board featuring a Southern Live Oak with Spanish moss? Here's the exact prompt, written in detailed visual language, ready for DALL-E, Midjourney, or Canva's AI generator.</div>
+                    <div class="content-item" data-segment="34">You copy this prompt, paste it into your AI tool, and you get professional-quality classroom décor that matches your unit theme. The visual design work is done.</div>
+                </div>
+
+                <!-- Student & Teacher Notes -->
+                <div class="section section-reflection">
+                    <h3 class="section-title" data-segment="35"><span class="section-icon">📝</span>Dual Track Guidance</h3>
+                    <div class="content-item" data-segment="35"><strong>Teacher Notes (Yellow):</strong> Pedagogical reasoning, trauma-informed alerts, formative assessment guidance.</div>
+                    <div class="content-item" data-segment="36"><strong>Student Notes (Blue):</strong> Ready-to-use language you can share directly with students to build metacognitive awareness. Example: "Your Field Journal is your personal garden of ideas. Treat it as a safe space where all your thoughts can take root and grow without judgment."</div>
+                    <div class="content-item" data-segment="37">You can project these, include them in assignment sheets, or use them for verbal framing. They're written in student-friendly language that reinforces the biophilic metaphor.</div>
+                </div>
+
+                <!-- Closing Summary -->
+                <div class="section section-rigor">
+                    <h3 class="section-title" data-segment="38"><span class="section-icon">✨</span>What This Framework Delivers</h3>
+                    <div class="content-item" data-segment="38">The 5Rs Framework providing complete lesson architecture: Relationships, Routines, Relevance, Rigor, Reflection.</div>
+                    <div class="content-item" data-segment="39">Root, Grow, Bloom daily structure within each lesson. Trauma-informed design in seating, story prompts, and emotional regulation supports.</div>
+                    <div class="content-item" data-segment="40">Cultural responsiveness centering Gullah-Geechee and Creek traditions. Gradual release of responsibility with I Do, We Do, You Do.</div>
+                    <div class="content-item" data-segment="41">Three-tier MTSS supports specified for every section. Sophisticated co-teaching coordination with explicit role definition.</div>
+                    <div class="content-item" data-segment="42">Plus curated digital resources with working URLs, copy-and-paste graphic organizers and assessments, and AI-ready visual design prompts.</div>
+                    <div class="content-item" data-segment="43"><strong>This isn't just a lesson plan. It's a complete teaching toolkit that respects your expertise and saves you hours of preparation time.</strong></div>
+                    <div class="content-item" data-segment="44">The RootWork Framework Lesson Plan Generator creates this level of pedagogical sophistication in minutes instead of hours.</div>
+                </div>
             </div>
 
-            <div class="explainer-content" id="explainerContent">
-                <p class="narration-text" id="narrationText">
-                    Welcome to the RootWork Lesson Plan Explainer. This interactive tool will guide you through an exceptional lesson plan, highlighting key elements and explaining why each component is pedagogically sound. Click "Start" to begin the guided tour.
-                </p>
-            </div>
-
-            <div class="tts-controls">
-                <div class="tts-toggle">
-                    <div class="toggle-switch" id="ttsToggle" role="switch" aria-checked="false" tabindex="0">
-                        <div class="toggle-slider"></div>
+            <!-- Control Panel -->
+            <div class="control-panel">
+                <!-- Segment Info Card -->
+                <div class="panel-card">
+                    <div class="segment-header">
+                        <span class="segment-number" id="segmentNumber">Segment 1 of 21</span>
+                        <span class="segment-time" id="segmentTime">0:00-0:30</span>
                     </div>
-                    <label for="ttsToggle">Enable Text-to-Speech</label>
+                    <h3 class="segment-title" id="segmentTitle">INTRODUCTION</h3>
+                    
+                    <!-- Progress Bar -->
+                    <div class="progress-container">
+                        <div class="progress-bar" id="progressBar"></div>
+                    </div>
+
+                    <!-- Narration -->
+                    <div class="narration-box">
+                        <p class="narration-text" id="narrationText">This isn't just a lesson plan - it's a masterclass in trauma-informed, culturally responsive, rigorous instruction.</p>
+                    </div>
+
+                    <!-- TTS Speaking Indicator -->
+                    <div class="tts-indicator" id="ttsIndicator">
+                        <span class="tts-icon">🔊</span>
+                        <span>Audio narration playing...</span>
+                    </div>
+
+                    <!-- Highlight Color Indicator -->
+                    <div class="highlight-indicator" id="highlightIndicator" style="display: none;">
+                        <span class="highlight-indicator-text">Highlighting:</span>
+                        <div class="highlight-color-box" id="highlightColorBox"></div>
+                    </div>
+                </div>
+
+                <!-- Controls Card -->
+                <div class="panel-card">
+                    <div class="controls-header">
+                        <span>Playback Controls</span>
+                        <div class="tts-toggle">
+                            <span>Audio Narration</span>
+                            <div class="toggle-switch" id="ttsToggle" onclick="toggleTTS()">
+                                <div class="toggle-slider"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="controls-buttons">
+                        <button class="control-button button-small" id="btnPrevious" onclick="previousSegment()">
+                            <svg class="icon-small" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polygon points="19 20 9 12 19 4 19 20"></polygon>
+                                <line x1="5" y1="19" x2="5" y2="5"></line>
+                            </svg>
+                        </button>
+                        
+                        <button class="control-button button-play" id="btnPlay" onclick="togglePlay()">
+                            <svg class="icon" id="iconPlay" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                            </svg>
+                            <svg class="icon" id="iconPause" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: none;">
+                                <rect x="6" y="4" width="4" height="16"></rect>
+                                <rect x="14" y="4" width="4" height="16"></rect>
+                            </svg>
+                        </button>
+                        
+                        <button class="control-button button-small" id="btnNext" onclick="nextSegment()">
+                            <svg class="icon-small" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polygon points="5 4 15 12 5 20 5 4"></polygon>
+                                <line x1="19" y1="5" x2="19" y2="19"></line>
+                            </svg>
+                        </button>
+                        
+                        <button class="control-button button-small" id="btnReset" onclick="resetDemo()">
+                            <svg class="icon-small" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="1 4 1 10 7 10"></polyline>
+                                <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="controls-status" id="statusText">Paused</div>
+                </div>
+
+                <!-- Legend Card -->
+                <div class="panel-card">
+                    <h4 class="legend-title">Pedagogical Elements</h4>
+                    <div class="legend-items">
+                        <div class="legend-item">
+                            <div class="legend-color" style="background-color: #FFEB3B;"></div>
+                            <span>Trauma-informed care</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background-color: #4CAF50;"></div>
+                            <span>Social-emotional learning</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background-color: #FF9800;"></div>
+                            <span>Routines & executive function</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background-color: #ADD8E6;"></div>
+                            <span>Biophilic design</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background-color: #FF69B4;"></div>
+                            <span>Cultural responsiveness</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background-color: #9C27B0;"></div>
+                            <span>Instructional structure</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background-color: #8B4513;"></div>
+                            <span>Co-teaching coordination</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background-color: #FF1493;"></div>
+                            <span>MTSS differentiation</span>
+                        </div>
+                    </div>
                 </div>
             </div>
+        </div>
 
-            <div class="controls">
-                <div class="progress-bar">
-                    <div class="progress-fill" id="progressFill" style="width: 0%"></div>
-                </div>
-
-                <div class="button-group">
-                    <button class="btn-secondary" id="prevBtn" disabled>
-                        ← Previous
-                    </button>
-                    <button class="btn-primary" id="playBtn">
-                        Start Tour
-                    </button>
-                    <button class="btn-secondary" id="nextBtn">
-                        Next →
-                    </button>
-                </div>
-
-                <div class="step-info">
-                    <span id="stepInfo">Step 0 of 11</span>
-                </div>
-            </div>
+        <!-- RootWork Branded Footer -->
+        <div class="footer">
+            <p class="footer-brand">🌱 Community Exceptional Children's Services</p>
+            <p>RootWork Framework Digital Ecosystem | Founded by Dr. Hearn</p>
+            <p>Savannah, Georgia | Trauma-Informed • Culturally Responsive • Evidence-Based</p>
         </div>
     </div>
 
     <script>
-        // Explainer Track Data
-        const explainerSteps = [
+        // Segment data
+        const segments = [
             {
-                title: "Welcome to RootWork",
-                narration: "Welcome to the RootWork Lesson Plan Explainer. This interactive tool guides you through an exceptional lesson plan that demonstrates best practices in education. We'll explore each component and explain why it works. The lesson plan covers everything from relationship-building to assessment, showing how all elements work together to create an effective learning experience.",
-                sectionId: "section-0"
+                id: 0,
+                time: '0:00-0:30',
+                title: 'INTRODUCTION',
+                highlightColor: null,
+                narration: "This isn't just a lesson plan - it's a masterclass in trauma-informed, culturally responsive, rigorous instruction. What you're looking at is the RootWork Framework's proprietary pedagogical design, and I'm going to show you exactly what makes it revolutionary. Over the next ten minutes, I'll walk you through the sophisticated educational architecture embedded in every section - from the 5Rs Framework structure to the comprehensive appendix that saves teachers hours of preparation time.",
+                duration: 30000
             },
             {
-                title: "Relationships & Community",
-                narration: "The lesson begins with relationship-building, which is exceptional because research shows students learn best when they feel safe and connected. Notice how the opening circle and partner activities create psychological safety before introducing challenging content. This isn't just a 'warm-up' – it's a critical foundation that enables deeper learning throughout the lesson.",
-                sectionId: "section-1"
+                id: 1,
+                time: '0:30-0:45',
+                title: 'THE 5Rs FRAMEWORK',
+                highlightColor: null,
+                narration: "First, notice the lesson structure. This isn't generic beginning-middle-end. This is the RootWork Framework's 5Rs: Relationships, Routines, Relevance, Rigor, and Reflection. Each R represents a research-backed pedagogical priority, and watch how they build on each other to create complete learning experiences.",
+                duration: 15000
             },
             {
-                title: "Clear Learning Objectives",
-                narration: "What makes this section exceptional is that objectives are written in student-friendly language, and success criteria are co-created with students. This increases ownership and understanding. Students don't just know what they're learning – they help define what success looks like. This metacognitive practice is proven to improve learning outcomes.",
-                sectionId: "section-2"
+                id: 2,
+                time: '0:45-1:00',
+                title: 'RELATIONSHIPS - Element #1',
+                highlightColor: '#FFEB3B',
+                narration: "Right away, trauma-informed design. The classroom environment is pre-structured. Students experiencing trauma need predictability. When they walk in knowing exactly where to sit, we reduce the anxiety that triggers fight-or-flight responses.",
+                duration: 15000
             },
             {
-                title: "Effective Direct Instruction",
-                narration: "This section exemplifies the gradual release model: 'I do, We do, You do.' The teacher uses multiple modalities – visual diagrams, real-world examples, and think-alouds. Notice how the teacher doesn't just present information but models their thinking process. The guided practice with traffic congestion connects to students' lived experience, making abstract concepts concrete.",
-                sectionId: "section-3"
+                id: 3,
+                time: '1:00-1:15',
+                title: 'RELATIONSHIPS - Element #2',
+                highlightColor: '#4CAF50',
+                narration: "Social-emotional learning through CASEL's self-awareness and relationship skills competencies. Structured turn-taking with clear expectations.",
+                duration: 15000
             },
             {
-                title: "Active Learning Application",
-                narration: "Here's where students take ownership of their learning. The differentiated options – approaching, on-level, and advanced – ensure every student can access the content at an appropriate challenge level. The gallery walk builds communication skills and exposes students to multiple perspectives. This isn't busy work – it's structured application that deepens understanding.",
-                sectionId: "section-4"
+                id: 4,
+                time: '1:15-1:30',
+                title: 'RELATIONSHIPS - Element #3',
+                highlightColor: '#ADD8E6',
+                narration: "And here's the biophilic design. This embodied metaphor - stories as living things that need care - will thread through the entire five-day unit. Every interaction with plants reinforces this conceptual framework.",
+                duration: 15000
             },
             {
-                title: "Reflection & Metacognition",
-                narration: "This component is exceptional because it explicitly builds metacognitive skills. Students reflect not just on what they learned, but how they learned it. The journal prompts ask students to identify their strategies and responses to challenges. This self-awareness is crucial for developing independent learners who can transfer skills to new contexts.",
-                sectionId: "section-5"
+                id: 5,
+                time: '1:30-1:45',
+                title: 'RELATIONSHIPS - Element #4',
+                highlightColor: '#FFEB3B',
+                narration: "This is sophisticated trauma-informed practice. The teacher anticipates that students in foster care, experiencing homelessness, or with disrupted family connections may not have safe childhood memories. There's a dignified alternative that doesn't reduce expectations or shame students. This is trauma-informed design at its best - multiple pathways without lowering the bar.",
+                duration: 15000
             },
             {
-                title: "Comprehensive Assessment",
-                narration: "The assessment strategy is exceptional because it uses multiple forms aligned to objectives, providing comprehensive feedback without overwhelming students. Formative assessments during the lesson inform real-time adjustments. Summative assessments capture both product and process. The self-assessment component builds student agency and metacognition.",
-                sectionId: "section-6"
+                id: 6,
+                time: '1:45-2:00',
+                title: 'ROUTINES - Element #5',
+                highlightColor: '#FF9800',
+                narration: "Now the second R: Routines. Watch how this creates executive function support. Notice the consistency of the garden metaphor. These aren't generic classroom rules - they're biophilic norms: 'We water ideas with encouragement,' 'We give thoughts time to grow,' 'We share the sunlight of attention.'",
+                duration: 15000
             },
             {
-                title: "Differentiation & Universal Design",
-                narration: "This section shows how Universal Design for Learning is embedded throughout. Multiple entry points ensure all students can access the content. Choice in scenarios, flexible grouping, and varied supports aren't add-ons – they're core design features. This approach doesn't lower expectations; it provides multiple pathways to high achievement.",
-                sectionId: "section-7"
+                id: 7,
+                time: '2:00-2:15',
+                title: 'ROUTINES - Element #6',
+                highlightColor: '#FF9800',
+                narration: "The Field Journal provides predictable structure for students with executive function challenges. Same tool, same format, every day.",
+                duration: 15000
             },
             {
-                title: "Extension & Enrichment",
-                narration: "Extension activities provide meaningful challenge for students who master concepts quickly. These aren't just 'more of the same' – they deepen understanding through additional frameworks and real-world application. The option to present to administration gives students authentic purpose and audience, increasing engagement and relevance.",
-                sectionId: "section-8"
+                id: 8,
+                time: '2:15-2:45',
+                title: 'ROUTINES - Element #7',
+                highlightColor: '#9C27B0',
+                narration: "Now THIS is the RootWork Framework's signature daily structure. Root, Grow, Bloom - not generic beginning-middle-end, but a coherent metaphor that helps students understand where they are in their learning journey. Root is foundation. Grow is development. Bloom is demonstration. It's gradual release of responsibility reframed through biophilic pedagogy.",
+                duration: 30000
             },
             {
-                title: "Home Connection & Transfer",
-                narration: "The take-home challenge is exceptional because it explicitly promotes transfer to students' lives beyond school. By offering choice – interview, household challenge, or news analysis – students can connect learning to their interests and contexts. This isn't traditional homework; it's authentic application that continues the learning conversation.",
-                sectionId: "section-9"
+                id: 9,
+                time: '2:45-3:00',
+                title: 'RELEVANCE - Element #8',
+                highlightColor: '#FF69B4',
+                narration: "The third R: Relevance. This is where cultural responsiveness enters. Place-based education. Students are seeing their own city's transformation over time.",
+                duration: 15000
             },
             {
-                title: "Synthesis: Why It Works",
-                narration: "The appendix synthesizes all the exceptional elements. This lesson works because it integrates research-based practices, social-emotional learning, equity principles, and sustainability. Notice how each component connects to others – relationships enable risk-taking, clear objectives guide assessment, differentiation ensures access. This isn't a collection of strategies; it's a coherent system designed for deep, lasting learning.",
-                sectionId: "section-10"
+                id: 10,
+                time: '3:00-3:20',
+                title: 'RELEVANCE - Element #9',
+                highlightColor: '#FF69B4',
+                narration: "Cultural responsiveness. Gullah-Geechee culture isn't treated as exotic sidebar - it's positioned as the PRIMARY source of sophisticated botanical knowledge.",
+                duration: 20000
+            },
+            {
+                id: 11,
+                time: '3:20-3:40',
+                title: 'RELEVANCE - Element #10',
+                highlightColor: '#FF69B4',
+                narration: "Notice what just happened. This lesson centers enslaved Africans as knowledge holders, not just victims. That's equity pedagogy.",
+                duration: 20000
+            },
+            {
+                id: 12,
+                time: '3:40-4:00',
+                title: 'RELEVANCE - Element #11',
+                highlightColor: '#FFEB3B',
+                narration: "And again, trauma-informed design. Not all students have intact family systems. The teacher validates multiple sources of storytelling without hierarchy.",
+                duration: 20000
+            },
+            {
+                id: 13,
+                time: '4:00-4:20',
+                title: 'RIGOR - Introduction',
+                highlightColor: '#9C27B0',
+                narration: "The fourth R: Rigor. This is where academic skills are built. Notice it's structured in three phases: I Do, We Do, You Do - gradual release of responsibility within the larger Grow phase of the daily routine.",
+                duration: 20000
+            },
+            {
+                id: 14,
+                time: '4:20-4:50',
+                title: 'RIGOR - I Do Phase',
+                highlightColor: '#9C27B0',
+                narration: "In the I Do phase, the teacher uses think-aloud protocol with authentic Gullah-Geechee literature. Cognitive modeling. Novice learners need to see HOW experts think, not just what they produce. The teacher is making invisible thinking visible.",
+                duration: 30000
+            },
+            {
+                id: 15,
+                time: '4:50-5:10',
+                title: 'RIGOR - Teacher Note',
+                highlightColor: '#FFEB3B',
+                narration: "That guidance is gold. This isn't performative teaching - it's deliberate instruction designed for students with processing differences.",
+                duration: 20000
+            },
+            {
+                id: 16,
+                time: '5:10-5:40',
+                title: 'RIGOR - We Do Phase',
+                highlightColor: '#8B4513',
+                narration: "In the We Do phase, students practice WITH support. Co-teaching coordination. This is parallel teaching - both teachers actively leading instruction with different groups. The special education teacher isn't 'helping' - they're teaching a modified lesson for students who need more intensive support. No pullout, no segregation, just strategic differentiation.",
+                duration: 30000
+            },
+            {
+                id: 17,
+                time: '5:40-6:00',
+                title: 'RIGOR - Biophilic Metaphor',
+                highlightColor: '#ADD8E6',
+                narration: "And again, the biophilic metaphor. Visual consistency helps students build conceptual connections.",
+                duration: 20000
+            },
+            {
+                id: 18,
+                time: '6:00-6:30',
+                title: 'RIGOR - You Do Phase',
+                highlightColor: '#FF1493',
+                narration: "Finally, the You Do phase - independent application. Multi-Tiered System of Supports. Three tiers: Tier 1: Full text for most students. Tier 2: Pre-highlighted text for students who struggle with locating information. Tier 3: Simplified, illustrated text with scribing support. Same learning target - citing textual evidence - but differentiated access points. This maintains high expectations while providing equity of access.",
+                duration: 30000
+            },
+            {
+                id: 19,
+                time: '6:30-6:50',
+                title: 'REFLECTION - Element #26',
+                highlightColor: '#4CAF50',
+                narration: "The fifth R: Reflection. This is where learning is consolidated and assessed. Social closure. Students return to the same configuration they started with - bookending the lesson with relational connection.",
+                duration: 20000
+            },
+            {
+                id: 20,
+                time: '6:50-7:20',
+                title: 'REFLECTION - Assessment',
+                highlightColor: '#808080',
+                narration: "Formative assessment embedded in reflection. Explicit data analysis protocol. Teachers know exactly HOW to use this data to plan tomorrow's instruction. That's assessment FOR learning, not OF learning.",
+                duration: 30000
+            },
+            {
+                id: 21,
+                time: '7:00-7:20',
+                title: 'REFLECTION - Teacher Note',
+                highlightColor: '#FFEB3B',
+                narration: "The exit ticket provides a three-tiered sorting system - students who can work independently, those who need support with explanation, and those who need comprehensive support. This is data-driven instruction in action.",
+                duration: 20000
+            },
+            {
+                id: 22,
+                time: '7:20-7:50',
+                title: 'MTSS - Tiered Supports',
+                highlightColor: '#FF1493',
+                narration: "Now let's look at how Multi-Tiered System of Supports is built into the lesson architecture. Tier 1 Universal Supports: Visual anchor charts, graphic organizers for ALL students, color-coding systems, consistent journal structure.",
+                duration: 30000
+            },
+            {
+                id: 23,
+                time: '7:50-8:10',
+                title: 'MTSS - Tier 2',
+                highlightColor: '#FF1493',
+                narration: "Tier 2 Targeted Interventions: Pre-highlighted texts, sentence frames, word banks, small group reteaching, extended time.",
+                duration: 20000
+            },
+            {
+                id: 24,
+                time: '8:10-8:30',
+                title: 'MTSS - Tier 3',
+                highlightColor: '#FF1493',
+                narration: "Tier 3 Intensive Interventions: One-on-one support, scribing services, simplified texts with visual supports, break cards, alternative demonstrations. This is sophisticated special education compliance. The lesson specifies WHAT supports, for WHOM, and WHEN.",
+                duration: 20000
+            },
+            {
+                id: 25,
+                time: '8:30-8:50',
+                title: 'CO-TEACHING - Relationships & Routines',
+                highlightColor: '#8B4513',
+                narration: "And notice the co-teaching clarity. During Relationships and Routines, the special education teacher provides proximity control for students with behavioral IEPs.",
+                duration: 20000
+            },
+            {
+                id: 26,
+                time: '8:50-9:10',
+                title: 'CO-TEACHING - Rigor Phase',
+                highlightColor: '#8B4513',
+                narration: "During Rigor, they lead parallel teaching with manipulatives.",
+                duration: 20000
+            },
+            {
+                id: 27,
+                time: '9:10-9:30',
+                title: 'CO-TEACHING - Reflection',
+                highlightColor: '#8B4513',
+                narration: "During Reflection, they facilitate a modified exit ticket station with verbal response options. This is complete role definition. Both teachers know exactly what they're doing at every moment.",
+                duration: 20000
+            },
+            {
+                id: 28,
+                time: '9:30-10:00',
+                title: 'APPENDIX - Section 1 Intro',
+                highlightColor: '#FF69B4',
+                narration: "Now here's what separates this generator from every other lesson planning tool. Most give you objectives and procedures. This gives you a complete implementation toolkit. Section One: Curated digital resources with working URLs and annotations.",
+                duration: 30000
+            },
+            {
+                id: 29,
+                time: '10:00-10:20',
+                title: 'APPENDIX - Digital Resources',
+                highlightColor: '#FF69B4',
+                narration: "Notice it doesn't just list a link. It explains WHY this resource matters and HOW it connects to your learning objectives. No more spending two hours Googling hoping to find something relevant. Every resource is vetted, connected to standards, and ready to use.",
+                duration: 20000
+            },
+            {
+                id: 30,
+                time: '10:20-10:40',
+                title: 'APPENDIX - Section 2 Text Assets',
+                highlightColor: '#ADD8E6',
+                narration: "Section Two: Ready-to-use, copy-and-paste text-based assets. Here's a complete graphic organizer. Notice the biophilic language: Planting Claims and Growing Evidence, The Seed, First Root, Second Root, The Bloom.",
+                duration: 20000
+            },
+            {
+                id: 31,
+                time: '10:40-11:00',
+                title: 'APPENDIX - Modified Materials',
+                highlightColor: '#ADD8E6',
+                narration: "And here's a modified exit ticket for IEP students with sentence starters, word banks, multiple choice scaffolds, and self-assessment tools. These supports are already built in.",
+                duration: 20000
+            },
+            {
+                id: 32,
+                time: '11:00-11:20',
+                title: 'APPENDIX - Copy & Paste Ready',
+                highlightColor: '#ADD8E6',
+                narration: "You can copy this, paste it into a Google Doc or worksheet maker, and you're done. No formatting, no designing - just implement. You don't have to create them at 10 PM the night before the lesson.",
+                duration: 20000
+            },
+            {
+                id: 33,
+                time: '11:20-11:50',
+                title: 'APPENDIX - Section 3 Visual Prompts',
+                highlightColor: '#9C27B0',
+                narration: "Section Three: Visual asset prompts for AI image generation. Want an Evidence Tree bulletin board featuring a Southern Live Oak with Spanish moss? Here's the exact prompt, written in detailed visual language.",
+                duration: 30000
+            },
+            {
+                id: 34,
+                time: '11:50-12:10',
+                title: 'APPENDIX - AI Image Generation',
+                highlightColor: '#9C27B0',
+                narration: "You copy this prompt, paste it into DALL-E, Midjourney, Canva's AI generator - whatever tool you use - and you get professional-quality classroom décor that matches your unit theme. The visual design work is done.",
+                duration: 20000
+            },
+            {
+                id: 35,
+                time: '12:10-12:30',
+                title: 'DUAL TRACK - Teacher Notes',
+                highlightColor: '#FFEB3B',
+                narration: "One more element I want you to see. Throughout this entire lesson, there are dual tracks of guidance. Teacher notes in yellow - these provide pedagogical reasoning, trauma-informed alerts, formative assessment guidance.",
+                duration: 20000
+            },
+            {
+                id: 36,
+                time: '12:30-12:50',
+                title: 'DUAL TRACK - Student Notes',
+                highlightColor: '#E3F2FD',
+                narration: "And student notes in blue - these are ready-to-use language you can share directly with students to build metacognitive awareness. 'Your Field Journal is your personal garden of ideas. Treat it as a safe space where all your thoughts can take root and grow without judgment.'",
+                duration: 20000
+            },
+            {
+                id: 37,
+                time: '12:50-13:10',
+                title: 'DUAL TRACK - Implementation',
+                highlightColor: '#E3F2FD',
+                narration: "You can project these, include them in assignment sheets, or use them for verbal framing. They're written in student-friendly language that reinforces the biophilic metaphor.",
+                duration: 20000
+            },
+            {
+                id: 38,
+                time: '13:10-13:30',
+                title: 'CLOSING - 5Rs Framework',
+                highlightColor: null,
+                narration: "Let me summarize what we just analyzed: The 5Rs Framework providing complete lesson architecture: Relationships, Routines, Relevance, Rigor, Reflection.",
+                duration: 20000
+            },
+            {
+                id: 39,
+                time: '13:30-13:50',
+                title: 'CLOSING - Daily Structure',
+                highlightColor: '#9C27B0',
+                narration: "Root, Grow, Bloom daily structure within each lesson. Trauma-informed design in seating, story prompts, and emotional regulation supports.",
+                duration: 20000
+            },
+            {
+                id: 40,
+                time: '13:50-14:10',
+                title: 'CLOSING - Cultural Responsiveness',
+                highlightColor: '#FF69B4',
+                narration: "Cultural responsiveness centering Gullah-Geechee and Creek traditions. Gradual release of responsibility with I Do, We Do, You Do.",
+                duration: 20000
+            },
+            {
+                id: 41,
+                time: '14:10-14:30',
+                title: 'CLOSING - MTSS & Co-Teaching',
+                highlightColor: '#FF1493',
+                narration: "Three-tier MTSS supports specified for every section. Sophisticated co-teaching coordination with explicit role definition.",
+                duration: 20000
+            },
+            {
+                id: 42,
+                time: '14:30-14:50',
+                title: 'CLOSING - Complete Toolkit',
+                highlightColor: '#ADD8E6',
+                narration: "Plus curated digital resources with working URLs, copy-and-paste graphic organizers and assessments, and AI-ready visual design prompts.",
+                duration: 20000
+            },
+            {
+                id: 43,
+                time: '14:50-15:10',
+                title: 'CLOSING - Not Just a Lesson Plan',
+                highlightColor: null,
+                narration: "This isn't just a lesson plan. It's a complete teaching toolkit that respects your expertise and saves you hours of preparation time.",
+                duration: 20000
+            },
+            {
+                id: 44,
+                time: '15:10-15:30',
+                title: 'CLOSING - Final Message',
+                highlightColor: '#4a7c2f',
+                narration: "The RootWork Framework Lesson Plan Generator creates this level of pedagogical sophistication in minutes instead of hours. Visit the generator to create your own trauma-informed, culturally responsive, standards-aligned lesson plans.",
+                duration: 20000
             }
         ];
 
-        // Application State
-        class ExplainerApp {
-            constructor() {
-                this.currentStep = 0;
-                this.isPlaying = false;
-                this.ttsEnabled = false;
-                this.utterance = null;
-                
-                // DOM Elements
-                this.playBtn = document.getElementById('playBtn');
-                this.nextBtn = document.getElementById('nextBtn');
-                this.prevBtn = document.getElementById('prevBtn');
-                this.ttsToggle = document.getElementById('ttsToggle');
-                this.narrationText = document.getElementById('narrationText');
-                this.stepInfo = document.getElementById('stepInfo');
-                this.progressFill = document.getElementById('progressFill');
-                this.contentPanel = document.getElementById('contentPanel');
-                this.statusIndicator = document.getElementById('statusIndicator');
-                
-                this.initializeEventListeners();
-                this.updateUI();
+        // State
+        let currentSegment = 0;
+        let isPlaying = false;
+        let progress = 0;
+        let segmentTimer = null;
+        let progressTimer = null;
+        
+        // Text-to-Speech state
+        let ttsEnabled = false;
+        let speechSynthesis = window.speechSynthesis;
+        let currentUtterance = null;
+
+        /*
+         * -----------------------------------------------------------------------------
+         * Pre‑recorded audio configuration
+         *
+         * The RootWork Lesson Plan explainer can play studio‑recorded narration for
+         * each segment instead of relying solely on the browser’s built‑in
+         * text‑to‑speech engine.  Set usePreRecordedAudio to true to enable this
+         * behaviour.  The audio files are stored in the `audio/Audio for Lesson plan
+         * generator video` directory relative to this page.  Each segment id maps
+         * directly to a file name in the audioMap below.  An <audio> element with
+         * id="segmentAudio" defined near the bottom of this page is used for playback.
+         */
+        const usePreRecordedAudio = true;
+        // Base path where the MP3 files reside relative to this HTML file
+        const audioBasePath = 'audio/Audio for Lesson plan generator video/';
+        // Map of segment id to file name.  These names must match the files
+        // contained in the audio directory exactly.
+        const audioMap = {
+            0: 'SEGMENT 0 30sec INTRODUCTION.mp3',
+            1: 'SEGMENT 1 THE 5Rs FRAMEWORK.mp3',
+            2: 'SEGMENT 2 RELATIONSHIPS - Element 1.mp3',
+            3: 'SEGMENT 3 RELATIONSHIPS - Element 2.mp3',
+            4: 'SEGMENT 4 RELATIONSHIPS - Element 3.mp3',
+            5: 'SEGMENT 5 RELATIONSHIPS - Element 4.mp3',
+            6: 'SEGMENT 6 ROUTINES - Element 5.mp3',
+            7: 'SEGMENT 7 ROUTINES - Element 6.mp3',
+            8: 'SEGMENT 8 ROUTINES - Element 7.mp3',
+            9: 'SEGMENT 9 RELEVANCE - Element 8.mp3',
+            10: 'SEGMENT 10 - RELEVANCE - Element 9.mp3',
+            11: 'SEGMENT 11 RELEVANCE - Element 10.mp3',
+            12: 'SEGMENT 12 RELEVANCE - Element 11.mp3',
+            13: 'SEGMENT 13 - RIGOR - Introduction.mp3',
+            14: 'SEGMENT 14 RIGOR - I Do Phase.mp3',
+            15: 'SEGMENT 15 - RIGOR - Teacher Note.mp3',
+            16: 'SEGMENT 16 - RIGOR - We Do Phase.mp3',
+            17: 'SEGMENT 17 - RIGOR - Biophilic Metaphor.mp3',
+            18: 'SEGMENT 18 - RIGOR - You Do Phase.mp3',
+            19: 'SEGMENT 19 REFLECTION - Element 26.mp3',
+            20: 'SEGMENT 20 - REFLECTION - Assessment.mp3',
+            21: 'SEGMENT 21 REFLECTION - Teacher Note.mp3',
+            22: 'SEGMENT 22 - MTSS - Tiered Supports.mp3',
+            23: 'SEGMENT 23 - MTSS - Tier 2.mp3',
+            24: 'SEGMENT 24 - MTSS - Tier 3.mp3',
+            25: 'SEGMENT 25 CO-TEACHING - Relationships & Routines.mp3',
+            26: 'SEGMENT 26 - CO-TEACHING - Rigor Phase.mp3',
+            27: 'SEGMENT 27 - CO-TEACHING - Reflection.mp3',
+            28: 'SEGMENT 28 - APPENDIX - Section 1 Intro.mp3',
+            29: 'SEGMENT 29 APPENDIX - Digital Resources.mp3',
+            30: 'SEGMENT 30 APPENDIX - Section 2 Text Assets.mp3',
+            31: 'SEGMENT 31 - APPENDIX - Modified Materials.mp3',
+            32: 'SEGMENT 32 - APPENDIX - Copy & Paste Ready.mp3',
+            33: 'SEGMENT 33 APPENDIX - Section 3 Visual Prompts.mp3',
+            34: 'SEGMENT 34 - APPENDIX - AI Image Generation.mp3',
+            35: 'SEGMENT 35 DUAL TRACK - Teacher Notes.mp3',
+            36: 'SEGMENT 36 DUAL TRACK - Student Notes.mp3',
+            37: 'SEGMENT 37 - DUAL TRACK - Implementation.mp3',
+            38: 'SEGMENT 38 - CLOSING - 5Rs Framework.mp3',
+            39: 'SEGMENT 39 CLOSING - Daily Structure.mp3',
+            40: 'SEGMENT 40 - CLOSING - Cultural Responsiveness.mp3',
+            41: 'SEGMENT 41 - CLOSING - MTSS & Co-Teaching.mp3',
+            42: 'SEGMENT 42 - CLOSING - Complete Toolkit.mp3',
+            43: 'SEGMENT 43 CLOSING - Not Just a Lesson Plan.mp3',
+            44: 'SEGMENT 44 - CLOSING - Final Message.mp3'
+        };
+        // Grab the audio element used for playback
+        const audioEl = document.getElementById('segmentAudio');
+
+        // Initialize
+        updateDisplay();
+        checkTTSSupport();
+
+        // Check if TTS is supported
+        function checkTTSSupport() {
+            if (!('speechSynthesis' in window)) {
+                document.getElementById('ttsToggle').style.opacity = '0.5';
+                document.getElementById('ttsToggle').style.cursor = 'not-allowed';
+                document.getElementById('ttsToggle').onclick = null;
             }
+        }
 
-            initializeEventListeners() {
-                this.playBtn.addEventListener('click', () => this.togglePlay());
-                this.nextBtn.addEventListener('click', () => this.nextStep());
-                this.prevBtn.addEventListener('click', () => this.prevStep());
-                this.ttsToggle.addEventListener('click', () => this.toggleTTS());
-                
-                // Keyboard navigation
-                this.ttsToggle.addEventListener('keydown', (e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                        e.preventDefault();
-                        this.toggleTTS();
-                    }
-                });
-
-                // Keyboard shortcuts
-                document.addEventListener('keydown', (e) => {
-                    if (e.key === 'ArrowRight' && !e.ctrlKey && !e.metaKey) {
-                        this.nextStep();
-                    } else if (e.key === 'ArrowLeft' && !e.ctrlKey && !e.metaKey) {
-                        this.prevStep();
-                    } else if (e.key === ' ' && e.target.tagName !== 'BUTTON') {
-                        e.preventDefault();
-                        this.togglePlay();
-                    }
-                });
-
-                // TTS ended event
-                if ('speechSynthesis' in window) {
-                    // No direct event listener, we'll check status in methods
+        // Toggle TTS
+        function toggleTTS() {
+            if (!('speechSynthesis' in window)) {
+                alert('Text-to-speech is not supported in your browser.');
+                return;
+            }
+            
+            ttsEnabled = !ttsEnabled;
+            const toggle = document.getElementById('ttsToggle');
+            
+            if (ttsEnabled) {
+                toggle.classList.add('active');
+                if (isPlaying) {
+                    speakNarration();
                 }
+            } else {
+                toggle.classList.remove('active');
+                stopSpeaking();
             }
+        }
 
-            togglePlay() {
-                if (this.currentStep === 0 && !this.isPlaying) {
-                    // Start the tour
-                    this.isPlaying = true;
-                    this.goToStep(1);
-                } else {
-                    this.isPlaying = !this.isPlaying;
-                    if (this.isPlaying) {
-                        this.speak();
+        // Speak narration
+        function speakNarration() {
+            if (!ttsEnabled || !('speechSynthesis' in window)) return;
+            
+            stopSpeaking();
+            
+            const segment = segments[currentSegment];
+            currentUtterance = new SpeechSynthesisUtterance(segment.narration);
+            
+            // Configure voice
+            currentUtterance.rate = 0.95;
+            currentUtterance.pitch = 1.0;
+            currentUtterance.volume = 1.0;
+            
+            // Show speaking indicator
+            document.getElementById('ttsIndicator').classList.add('speaking');
+            
+            // Event handlers
+            currentUtterance.onend = function() {
+                document.getElementById('ttsIndicator').classList.remove('speaking');
+            };
+            
+            currentUtterance.onerror = function() {
+                document.getElementById('ttsIndicator').classList.remove('speaking');
+            };
+            
+            speechSynthesis.speak(currentUtterance);
+        }
+
+        // Stop speaking
+        function stopSpeaking() {
+            // Stop any ongoing text-to-speech utterance
+            if (speechSynthesis && speechSynthesis.speaking) {
+                speechSynthesis.cancel();
+            }
+            // Also stop any pre-recorded audio playback
+            if (audioEl) {
+                audioEl.pause();
+            }
+            document.getElementById('ttsIndicator').classList.remove('speaking');
+        }
+
+        function togglePlay() {
+            isPlaying = !isPlaying;
+            if (isPlaying) {
+                document.getElementById('iconPlay').style.display = 'none';
+                document.getElementById('iconPause').style.display = 'block';
+                document.getElementById('statusText').textContent = 'Playing...';
+                startSegment();
+            } else {
+                document.getElementById('iconPlay').style.display = 'block';
+                document.getElementById('iconPause').style.display = 'none';
+                document.getElementById('statusText').textContent = 'Paused';
+                stopSegment();
+                stopSpeaking();
+            }
+        }
+
+        function startSegment() {
+            const segment = segments[currentSegment];
+            // Clear existing timers and any ongoing narration
+            stopSegment();
+            stopSpeaking();
+            
+            // If using pre-recorded audio, play the audio for this segment.
+            if (usePreRecordedAudio) {
+                playPreRecordedAudio(segment);
+            } else {
+                // Otherwise, start TTS if enabled
+                if (ttsEnabled) {
+                    speakNarration();
+                }
+                // Start progress animation for TTS or silent playback
+                progress = 0;
+                const progressIncrement = 100 / (segment.duration / 100);
+                progressTimer = setInterval(() => {
+                    progress += progressIncrement;
+                    if (progress >= 100) progress = 100;
+                    document.getElementById('progressBar').style.width = progress + '%';
+                }, 100);
+                // Set timer for next segment when not using audio
+                segmentTimer = setTimeout(() => {
+                    if (currentSegment < segments.length - 1) {
+                        currentSegment++;
+                        updateDisplay();
+                        if (isPlaying) {
+                            startSegment();
+                        }
                     } else {
-                        this.stopSpeaking();
+                        // End of demo
+                        isPlaying = false;
+                        document.getElementById('iconPlay').style.display = 'block';
+                        document.getElementById('iconPause').style.display = 'none';
+                        document.getElementById('statusText').textContent = 'Complete';
+                        stopSpeaking();
                     }
-                }
-                this.updateUI();
+                }, segment.duration);
+            }
+        }
+
+        function stopSegment() {
+            if (segmentTimer) {
+                clearTimeout(segmentTimer);
+                segmentTimer = null;
             }
 
-            nextStep() {
-                if (this.currentStep < explainerSteps.length - 1) {
-                    this.goToStep(this.currentStep + 1);
-                }
+        /**
+         * Play the pre‑recorded MP3 associated with the current segment.  This
+         * function sets the audio element’s source to the file mapped in
+         * `audioMap`, resets the playback position, and hooks up
+         * `ontimeupdate` and `onended` events to drive the progress bar and
+         * advance to the next segment automatically when the narration
+         * finishes.  If no file exists for the segment id, the function
+         * silently returns.
+         *
+         * @param {Object} segment - The segment metadata containing an id.
+         */
+        function playPreRecordedAudio(segment) {
+            const fileName = audioMap[segment.id];
+            if (!fileName || !audioEl) {
+                return;
             }
+            // Construct full path and set source
+            audioEl.src = audioBasePath + fileName;
+            audioEl.currentTime = 0;
 
-            prevStep() {
-                if (this.currentStep > 0) {
-                    this.goToStep(this.currentStep - 1);
-                }
-            }
+            // Update the progress bar during playback
+            audioEl.ontimeupdate = function() {
+                if (!audioEl.duration || isNaN(audioEl.duration)) return;
+                progress = (audioEl.currentTime / audioEl.duration) * 100;
+                if (progress > 100) progress = 100;
+                document.getElementById('progressBar').style.width = progress + '%';
+            };
 
-            goToStep(stepIndex) {
-                this.stopSpeaking();
-                this.currentStep = stepIndex;
-                this.isPlaying = true;
-                
-                const step = explainerSteps[this.currentStep];
-                
-                // Update narration text
-                this.narrationText.textContent = step.narration;
-                
-                // Remove previous highlights
-                document.querySelectorAll('section.highlighted').forEach(section => {
-                    section.classList.remove('highlighted');
-                });
-                
-                // Add highlight to current section
-                const targetSection = document.getElementById(step.sectionId);
-                if (targetSection) {
-                    targetSection.classList.add('highlighted');
-                    
-                    // Scroll to section smoothly
-                    targetSection.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-                
-                // Speak if TTS is enabled
-                if (this.ttsEnabled) {
-                    setTimeout(() => this.speak(), 500);
-                }
-                
-                this.updateUI();
-            }
-
-            toggleTTS() {
-                this.ttsEnabled = !this.ttsEnabled;
-                this.ttsToggle.classList.toggle('active', this.ttsEnabled);
-                this.ttsToggle.setAttribute('aria-checked', this.ttsEnabled);
-                
-                if (this.ttsEnabled && this.isPlaying) {
-                    this.speak();
+            // When the audio finishes, advance to the next segment or finish
+            audioEl.onended = function() {
+                progress = 100;
+                document.getElementById('progressBar').style.width = '100%';
+                if (currentSegment < segments.length - 1) {
+                    currentSegment++;
+                    updateDisplay();
+                    if (isPlaying) {
+                        startSegment();
+                    }
                 } else {
-                    this.stopSpeaking();
+                    isPlaying = false;
+                    document.getElementById('iconPlay').style.display = 'block';
+                    document.getElementById('iconPause').style.display = 'none';
+                    document.getElementById('statusText').textContent = 'Complete';
                 }
-            }
+            };
 
-            speak() {
-                if (!this.ttsEnabled || !('speechSynthesis' in window)) {
-                    return;
-                }
-                
-                this.stopSpeaking();
-                
-                const step = explainerSteps[this.currentStep];
-                this.utterance = new SpeechSynthesisUtterance(step.narration);
-                this.utterance.rate = 0.9;
-                this.utterance.pitch = 1;
-                this.utterance.volume = 1;
-                
-                this.utterance.onend = () => {
-                    this.utterance = null;
-                };
-                
-                window.speechSynthesis.speak(this.utterance);
+            // Start playback; catch any errors silently (e.g., autoplay blocked)
+            audioEl.play().catch(function(err) {
+                console.warn('Audio playback failed:', err);
+            });
+        }
+            if (progressTimer) {
+                clearInterval(progressTimer);
+                progressTimer = null;
             }
-
-            stopSpeaking() {
-                if ('speechSynthesis' in window) {
-                    window.speechSynthesis.cancel();
-                }
-                this.utterance = null;
+            // Stop any playing audio and reset event handlers
+            if (audioEl) {
+                audioEl.pause();
+                audioEl.currentTime = 0;
+                audioEl.ontimeupdate = null;
+                audioEl.onended = null;
             }
+        }
 
-            updateUI() {
-                // Update play button
-                if (this.currentStep === 0) {
-                    this.playBtn.textContent = 'Start Tour';
-                } else if (this.isPlaying) {
-                    this.playBtn.textContent = '⏸ Pause';
-                } else {
-                    this.playBtn.textContent = '▶ Resume';
-                }
-                
-                // Update navigation buttons
-                this.prevBtn.disabled = this.currentStep === 0;
-                this.nextBtn.disabled = this.currentStep === explainerSteps.length - 1;
-                
-                // Update step info
-                this.stepInfo.textContent = `Step ${this.currentStep} of ${explainerSteps.length - 1}`;
-                
-                // Update progress bar
-                const progress = (this.currentStep / (explainerSteps.length - 1)) * 100;
-                this.progressFill.style.width = `${progress}%`;
-                
-                // Update status indicator
-                this.statusIndicator.className = 'status-indicator';
-                if (this.isPlaying && this.currentStep > 0) {
-                    this.statusIndicator.classList.add('playing');
-                } else if (this.currentStep > 0) {
-                    this.statusIndicator.classList.add('paused');
+        function previousSegment() {
+            if (currentSegment > 0) {
+                stopSpeaking();
+                currentSegment--;
+                progress = 0;
+                updateDisplay();
+                if (isPlaying) {
+                    startSegment();
                 }
             }
         }
 
-        // Initialize the application when DOM is ready
-        document.addEventListener('DOMContentLoaded', () => {
-            new ExplainerApp();
-        });
+        function nextSegment() {
+            if (currentSegment < segments.length - 1) {
+                stopSpeaking();
+                currentSegment++;
+                progress = 0;
+                updateDisplay();
+                if (isPlaying) {
+                    startSegment();
+                }
+            }
+        }
+
+        function resetDemo() {
+            stopSegment();
+            stopSpeaking();
+            currentSegment = 0;
+            progress = 0;
+            isPlaying = false;
+            document.getElementById('iconPlay').style.display = 'block';
+            document.getElementById('iconPause').style.display = 'none';
+            document.getElementById('statusText').textContent = 'Paused';
+            updateDisplay();
+        }
+
+        function updateDisplay() {
+            const segment = segments[currentSegment];
+            
+            // Update segment info
+            document.getElementById('segmentNumber').textContent = `Segment ${currentSegment + 1} of ${segments.length}`;
+            document.getElementById('segmentTime').textContent = segment.time;
+            document.getElementById('segmentTitle').textContent = segment.title;
+            document.getElementById('narrationText').textContent = segment.narration;
+            
+            // Update progress bar
+            document.getElementById('progressBar').style.width = progress + '%';
+            
+            // Update highlight indicator
+            if (segment.highlightColor) {
+                document.getElementById('highlightIndicator').style.display = 'flex';
+                document.getElementById('highlightColorBox').style.backgroundColor = segment.highlightColor;
+            } else {
+                document.getElementById('highlightIndicator').style.display = 'none';
+            }
+            
+            // Update button states
+            document.getElementById('btnPrevious').disabled = currentSegment === 0;
+            document.getElementById('btnNext').disabled = currentSegment === segments.length - 1;
+            
+            // Update content highlighting
+            highlightContent();
+        }
+
+        function highlightContent() {
+            const segment = segments[currentSegment];
+            const allItems = document.querySelectorAll('.content-item');
+            
+            // Remove all highlights
+            allItems.forEach(item => {
+                item.classList.remove('highlighted');
+                item.style.backgroundColor = '';
+                if (item.classList.contains('teacher-note')) {
+                    item.style.backgroundColor = '#fef9c3';
+                } else if (item.classList.contains('student-note')) {
+                    item.style.backgroundColor = '#dbeafe';
+                }
+            });
+            
+            // Add highlight to current segment
+            const targetItems = document.querySelectorAll(`[data-segment="${currentSegment}"]`);
+            targetItems.forEach(item => {
+                item.classList.add('highlighted');
+                if (segment.highlightColor) {
+                    item.style.backgroundColor = segment.highlightColor;
+                }
+                
+                // Scroll into view
+                item.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            });
+        }
     </script>
+    <!-- Hidden audio element used for pre-recorded narration. -->
+    <audio id="segmentAudio" preload="auto"></audio>
 </body>
 </html>
