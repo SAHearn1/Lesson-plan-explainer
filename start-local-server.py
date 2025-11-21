@@ -8,6 +8,7 @@ import http.server
 import socketserver
 import os
 import sys
+import errno
 import webbrowser
 from pathlib import Path
 
@@ -84,7 +85,7 @@ def main():
         print("=" * 50)
         sys.exit(0)
     except OSError as e:
-        if e.errno == 98 or e.errno == 48:  # Address already in use
+        if e.errno == errno.EADDRINUSE:  # Address already in use
             print(f"\n✗ Error: Port {PORT} is already in use")
             print(f"  Try closing other applications using port {PORT}")
             print(f"  Or change PORT in this script to a different value")

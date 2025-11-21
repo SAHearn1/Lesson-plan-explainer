@@ -305,6 +305,7 @@
     <script>
         const TOTAL_SEGMENTS = 45;
         const BASE_PATH = 'audio/';
+        const LOAD_TIMEOUT_MS = 10000; // 10 seconds timeout for loading
         
         let results = [];
         let testingInProgress = false;
@@ -378,11 +379,11 @@
                 const audio = new Audio(filePath);
                 
                 const timeout = setTimeout(() => {
-                    results[index] = { success: false, error: 'Timeout' };
+                    results[index] = { success: false, error: 'Timeout (10s)' };
                     fileEl.className = 'file-status error';
                     fileEl.querySelector('.icon').textContent = '✗';
                     resolve();
-                }, 5000);
+                }, LOAD_TIMEOUT_MS);
                 
                 audio.addEventListener('canplaythrough', () => {
                     clearTimeout(timeout);

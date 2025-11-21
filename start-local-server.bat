@@ -11,21 +11,35 @@ echo.
 REM Check if Python is installed
 python --version >nul 2>&1
 if %errorlevel% equ 0 (
-    set PYTHON_CMD=python
-    echo. Found Python
-) else (
-    python3 --version >nul 2>&1
+    REM Check if it's Python 3.x
+    python -c "import sys; exit(0 if sys.version_info.major >= 3 else 1)" >nul 2>&1
     if %errorlevel% equ 0 (
-        set PYTHON_CMD=python3
-        echo. Found Python3
+        set PYTHON_CMD=python
+        echo. Found Python 3.x
     ) else (
-        echo. Python not found!
-        echo Please install Python 3 to run this server.
-        echo Download from: https://www.python.org/downloads/
-        pause
-        exit /b 1
+        echo. Found Python 2.x - Python 3.x required
+        goto :try_python3
     )
+) else (
+    goto :try_python3
 )
+goto :start_server
+
+:try_python3
+python3 --version >nul 2>&1
+if %errorlevel% equ 0 (
+    set PYTHON_CMD=python3
+    echo. Found Python3
+    goto :start_server
+) else (
+    echo. Python 3.x not found!
+    echo Please install Python 3 to run this server.
+    echo Download from: https://www.python.org/downloads/
+    pause
+    exit /b 1
+)
+
+:start_server
 
 echo.
 echo Starting local HTTP server...
