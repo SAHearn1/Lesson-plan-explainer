@@ -17,7 +17,7 @@
 ## Repo Classification
 - **Tier:** 3 (experimental)
 - **Purpose:** AI-powered lesson plan explainer tool
-- **Stack:** TODO — requires human verification
+- **Stack:** JavaScript / HTML / CSS (audio-enabled web app; verify with `package.json`)
 
 ## Governance Hub
 See `SAHearn1/rwfw-agent-governance`
